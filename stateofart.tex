@@ -1,0 +1,79 @@
+\chapter{Core Concepts and State of the Art}
+\section{Core Concepts}
+(TODO: Mudar "For better understanding....")
+For a better understanding, this chapter describes the fundamental concepts of the topic of this thesis, which revolves around Blockchains, Consensus Algorithms, and State Machine Replication. A consensus algorithm refers to the method used by a network to reach agreement on a set of values in a distributed system. Blockchains, on the other hand, are append-only ledgers that are linked to each other by cryptographic hash functions, making them immutable. Blockchains can be considered as State Machine Replication as they store the current state of a system, and the consensus algorithm ensures that every copy of the ledger is updated consistently. The FLP theorem, Partial Synchrony, and BFT algorithms are related to the topic of consensus algorithms, and will be explained in this section. This thesis uses the Tezos blockchain as a case study, due to its ability to easily swap and upgrade its consensus algorithm, making it a suitable platform to study these topics.
+
+\subsection*{\textbf{State Machine Replication}}
+(TODO: Adicionar aos acrónimos)
+(TODO: Verificar o que eu disse)
+(TODO: Falar do CAP System e fazer referencias)
+State Machine Replication (SMR) is a fundamental concept in decentralized systems that plays a crucial role in ensuring the consistency and availability of shared data.
+SMR works by representing the state of a system as a finite-state machine, which provides a clear and concise representation of the current state of the system.
+This representation allows for the use of consensus algorithms, which coordinate updates to the state and ensure that all nodes in the system agree on the current state.
+This leads to a consistent view of the state across all nodes, ensuring the data remains consistent even in the presence of node failures or network partitions.
+
+It provides several key advantages in distributed systems.
+One of the main advantages, like mentioned befire, is that it can provide both consistency and availability, making it a popular choice for use in blockchain technology, databases, file systems, and other decentralized systems. Additionally, SMR provides mechanisms for recovery from node failures, ensuring that the state of the system can be recovered and can continue to operate. 
+This is important in systems where the loss of a single node can have serious consequences for the entire network.
+
+SMR also has the ability to handle network partitions and ensure that all nodes can continue to operate and reach consensus, even if the network is temporarily disconnected. This is accomplished through the use of consensus algorithms, such as Paxos, Raft, and Byzantine Fault Tolerance (BFT) algorithms, this last one being explained in a later section (TODO: adicionar referencia à outra subsecção). These algorithms provide the mechanism for ensuring that all nodes agree on the current state of the system, even in the presence of network partitions or node failures.
+
+In terms of performance, SMR can be designed to provide high performance and scalability, making it a suitable choice for large-scale distributed systems.
+This is achieved through the use of efficient algorithms and the optimization of network communication and data storage. Additionally, SMR provides mechanisms for ensuring the security of the state of the system, such as digital signatures and encryption, to prevent tampering or unauthorized access.
+
+Overall, the concept of State Machine Replication is a fundamental component of decentralized systems that plays a crucial role in ensuring the consistency and availability of shared data (in case of Blockchains, to ensure that every node have the same chain).
+Its ability to provide both consistency and availability, along with its performance and security benefits, make it a popular choice for use in a variety of distributed systems, including blockchain technology, databases, file systems, and more.
+
+
+\subsection*{\textbf{Blockchain Data Structure and Networks}}
+Blockchain is a data structure that is often compared to a linked list, since every node of the list points to a node in the list. In the case of, every block in the chain points to a previous block in the chain.
+
+It is used to record transactions and is based on the concept of state machine replication.
+Each block in a blockchain contains a collection of verified transactions and a reference to the previous block in the chain.
+This creates a chain of blocks, each one linked to the previous one through a unique hash generated using a cryptographic function.
+That is, every block, except for the first block (sometimes called ``Genesis'' block), contains the hash of it's previous (or parent) block.
+Once a block is added to the blockchain, it cannot be altered or deleted, making the ledger tamper-resistant and immutable, since, in order to change a block's information, one would need to change every child's block hash.
+One can also say that, the older the block, the more ``immutable'' it is, or the bigger the number of child blocks a block has, the harder is the tampering of such block.
+
+Blockchain networks operate in a decentralized manner, with no central authority or entity controlling the network. 
+The network reaches consensus on the contents of a new block through the use of consensus mechanisms, such as Proof of Work or Proof of Stake(TODO: Adicionar referencia) (These mechanisms will be explained in detail in later subsections).
+
+The blockchain is a distributed ledger, with all nodes in the network having a copy of the ledger, ensuring availability and transparency.
+
+State machine replication ensures that all nodes in the network have the same chain, which is critical in a decentralized system. The consensus mechanism in a blockchain network ensures that all nodes agree on the state of the system and that all nodes have the same chain. This helps to ensure the consistency and integrity of the data stored in the blockchain.
+
+The blockchain can be considered the state of a machine, where copies of the state of this machine is stored in multiple nodes, and newer states, that is, the appending of a new block to the chain, is replicated to every machine.
+
+Beyond cryptocurrency, blockchains have a wide range of potential applications in various industries, such as supply chain management, voting systems, and identity verification. The transparent nature of blockchains ensures that all transactions are publicly accessible and verifiable. The cryptographic functions used in blockchains, such as hashing and consensus mechanisms, provide a high level of security to the ledger and its transactions.
+
+In conclusion, blockchain is a data structure that leverages the concepts of state machine replication to provide a secure and tamper-resistant ledger for recording transactions. The decentralized nature of blockchains and the use of consensus mechanisms ensure that all nodes in the network have the same chain, providing both availability and consistency.
+
+\subsection*{\textbf{Consensus}}
+Consensus algorithms play a crucial role in decentralized systems, serving as the engine that drives State Machine Replication. These algorithms are used to reach agreement on the state of a system among all the nodes in a network, ensuring that all participants have a common understanding of the system's current state. The use of consensus algorithms has become widespread in various decentralized systems, such as blockchains, distributed databases, and distributed file systems, where it is crucial to maintain the consistency and integrity of data.
+
+There are several important theorems related to consensus algorithms, including the FLP Impossibility Theorem and the CAP Theorem. The FLP Impossibility Theorem states that, in an asynchronous network, it is impossible to achieve both reliability and consensus in the presence of process failures. This theorem highlights the trade-off between reliability and consensus in decentralized systems. On the other hand, the CAP Theorem states that it is impossible for a distributed system to simultaneously provide consistency, availability, and partition tolerance. These theorems provide limits and trade-offs in decentralized systems, and serve as a useful reference for designers and researchers in the field.
+
+
+(TODO: Por imagem)
+One subject of much discussion is the topic of the "Blockchain" trilemma, where people try to define the consensus of a blockchain based on a location in a area formed by a triangle.
+
+The trilemma of blockchain networks refers to the trade-off between scalability, security, and decentralization. In other words, it is impossible to achieve all three goals at the same time in a blockchain network, and these trade-offs are the points of the trianle mentioned before. Scalability is often refered as Speed or Velocity.
+
+For example, Bitcoin is a highly decentralized and secure blockchain, as there are many nodes (Around 40 thousand (TODO: Add citation)), yet lacks on scalability, since, the creation of a block takes 10min and the a transaction takes about 1 to 1.5 hours to complete (TODO: Add citation).
+
+This trilemma is related to the CAP theorem, which states that in a distributed system, it is impossible to simultaneously guarantee consistency, availability, and partition tolerance. Consistency means that all nodes see the same data at the same time, availability means that all nodes can access the data at any time, and partition tolerance means that the system continues to work even if communication between nodes is lost.
+
+In the case of Bitcoin, for example, increasing the scalability of the network would require reducing the number of nodes that validate transactions, which would compromise the security and decentralization of the network. Similarly, improving the security of the network by adding more nodes would increase the complexity and reduce the scalability of the network.
+
+Therefore, when designing a blockchain network, it is important to understand the trade-offs between scalability, security, and decentralization and to make trade-offs based on the specific goals and requirements of the network.
+
+Consensus protocols, such as RAFT, Paxos, and BFT (Byzantine Fault Tolerance), are used to reach consensus in decentralized systems. These protocols have a set of formal requirements, including agreement, weak validity, strong validity, and termination. Agreement states that all correct processes must agree on the same value, while weak validity states that the output of each correct process must be the input of some correct process. Strong validity requires that all correct processes output the same value if they receive the same input value, and termination requires that all processes eventually decide on an output value.
+
+Blockchains rely on consensus algorithms to maintain the integrity and consistency of their data. One of the most well-known consensus algorithms in blockchains is Nakamoto consensus, which is used in the original Bitcoin blockchain and relies on proof of work. Another popular consensus algorithm is Ethash, used by Ethereum, which is a form of proof of work. Proof of Stake is another consensus algorithm that uses the stake of a node to determine its ability to validate transactions and add new blocks to the chain. Delegated Proof of Stake, used by Tezos, allows nodes to delegate their validation power to other nodes, increasing the efficiency of the network while maintaining decentralization. Blockchains can also use hybrid consensus algorithms, combining elements of proof of work and proof of stake.
+
+It is important to study various types of consensus attacks, such as 51\% attacks, double-spending, and more, and how consensus algorithms are designed to prevent these attacks. Other consensus algorithms worth mentioning include Delegated Byzantine Fault Tolerance, Practical Byzantine Fault Tolerance, and Directed Acyclic Graphs. These algorithms have unique features and trade-offs, and the choice of a consensus algorithm for a particular blockchain will depend on its specific requirements and goals.
+
+In conclusion, consensus algorithms are a fundamental component of decentralized systems, serving as the engine that drives State Machine Replication. These algorithms are used to reach agreement on the state of the system among all nodes in a network, ensuring that all participants have a common understanding of the current state of the system. The choice of a consensus algorithm will depend on the specific requirements and goals of a decentralized system, and the trade-offs between reliability and consensus, as well as availability and consistency, must be considered.
+
+
+
