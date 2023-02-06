@@ -79,6 +79,8 @@ Core Concepts e State of the Art
     - Proof of Storage and Others
         - Make a small reference but recall that we are focuses on Application Layer Like blockchain networks
 
+    - The Tezos blockchain
+
 (Qual é o problema, e como é que vamos resolver o problema)
 - Problem and Solution
     - The Problem
@@ -88,16 +90,17 @@ Core Concepts e State of the Art
         - Method of testing and easily swaping consensus algorithms: Which includes
             - Taking a already built blockchain and make it suitable for both swapping and testing
             - One of the ideas was using tezos (explained later why) where we are taking out the consensus and add a layer of adaptability to it
-            - Develop something to deploy multiple nodes and actually test this in a running live network
-
-        - Includes: DSL, Way to do the actual swapping, test metrics (?)
 
     - The Experiment for the solution:
         - Why Tezos was the choice: 
             - Explain how it's upgradable
             - Explain how it's a good fit (it's a comercially/industrially used chain)
                 - Because it's upgradable, the consensus in the codebase is independent and it's made for the replacement of such
-                - The idea of the protocol is stateless, independent from other stuff like p2p, on-disk storage, verifications, dataencoding, client, etc, only have to focus on writing the actual protocol
+                - As a brief description, Tezos was developed with the idea of being easily upgradable/where the consensus algorithm could be changed
+                - But "unitentionally" (get another word for this), upgrading the consensus can be boiled down to actually changing the protocol/consensus
+            - Develop something to deploy multiple nodes and actually test this in a running live network
+            - Doing so, it could be easily implemented an API/Adaptative layer that enables the connection with what is compiled from DSL, or a  Way to do the actual swapping, and test metrics
+            - The idea of the protocol is stateless, independent from other stuff like p2p, on-disk storage, verifications, dataencoding, client (refer to what was said previously in the solution section), etc, making it only having to focus on writing the actual protocol, and not worry about other stuff
 
         - How is Tezos structured to allow such upgrades
             - Explain the upgrading concept

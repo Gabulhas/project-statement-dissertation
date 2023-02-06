@@ -9,11 +9,41 @@ There is no blockchain node software that allow for a seamless swap of the conse
 
 Additionally, the process of designing and coding a new consensus algorithm is also challenging and requires a significant amount of expertise and resources. There is currently no platform that allows for the easy design, swap, and testing of new consensus algorithms.
 
-
 All these problems contribute to the lack of standardization in the field of consensus protocols, a lot of attributes and characteristic to take in, making it difficult for individuals and organizations to adopt blockchain technology effectively.
 It is crucial to find a solution that allows for the easy and efficient comparison and testing of consensus protocols, as well as the design and implementation of new protocols. This will pave the way for the further development and widespread adoption of blockchain technology.
 
 
+\section{Solution Proposed}
+The proposed solution aims to tackle the challenges mentioned in the "Problem Statement" section by providing a method of testing and easily swapping consensus algorithms. To achieve this, the solution leverages the advantages of a pre-existing blockchain that is suitable for both swapping and testing.
+
+By using an already built blockchain, the focus of this solution is solely on the consensus algorithm, the crucial aspect of any blockchain. The need for implementing other parts of the blockchain node such as the Peer-to-Peer layer, client, validation layer, storage of the blockchain state, etc., is eliminated. This benefits the solution by making use of already tested and industrial-grade blockchain software, freeing up time and resources to concentrate solely on the consensus.
+
+One of the ideas for implementing this solution is to use the Tezos blockchain. The reason for using Tezos is its inherent adaptability, which allows for the removal of its current consensus algorithm and the implementation of a new, customizable one. This approach provides a layer of adaptability to the Tezos blockchain, making it suitable for testing and swapping various consensus algorithms with ease.
+
+\textbf{As of the writing of this document, there's no knowledge of projects or documents that describe a similar solution to this one proposed}. There exists the concept of consensus testing when talking about a blockchain node implementation in specific, that is, for example, tools to test the Ethereum network, or the Tezos network, but there are no tools to test specifically the consensus part of this projects.
+
+In conclusion, the solution proposes to overcome the challenges mentioned in the "Problem Statement" section by providing a method of testing and easily swapping consensus algorithms. By leveraging the advantages of a pre-existing blockchain and its adaptability, the focus remains solely on the consensus algorithm, the crucial aspect of any blockchain, allowing for efficient and effective testing and comparison of different consensus algorithms.
 
 
+\subsection*{Tezos Blockchain as a tool for the Experiment}
+The choice of Tezos as the blockchain network for this experiment is a deliberate one, as it aligns well with the goals of the solution presented in the previous section.
+
+
+
+To understand why Tezos was chosen, it is important to first explain what Tezos is. 
+
+Tezos is a blockchain network that was launched in 2018. The history of Tezos began with the idea of creating a generic and self-amending crypto-ledger, which could be improved and upgraded over time without causing any disruption to its community. This makes Tezos stand out from other blockchain networks, which often struggle with the challenges of upgrading their underlying technology. The idea behind Tezos is to provide a blockchain network that is not only secure but also flexible and upgradable. The network is designed to be self-amending, meaning that changes to its protocol can be made without the need for a hard fork.
+% TODO: explain what hard fork is
+
+Tezos originally operates on a consensus mechanism called "delegated proof of stake," which allows for the network to be run by a select group of "delegates." This consensus mechanism allows for faster transaction times and lower energy consumption compared to other consensus mechanisms, such as proof of work.
+
+When compared to other blockchain networks, Tezos stands out as a really good fit for this experiment. It is commercially and industrially used and its upgradability makes it suitable for the replacement of the consensus algorithm. Additionally, the consensus in the codebase is independent and the whole project is designed for the replacement of such. 
+The idea of the protocol in Tezos is stateless, meaning that it is independent from other parts of the node like the Peer-to-Peer layer, the client, the validation layer, and the storage of the blockchain state on disk.
+This makes it easy to focus on writing the actual protocol and eliminates the need to worry about other components.
+
+In addition to its technological strengths, Tezos is also a well-tested and industry-grade blockchain network, used by millions of users. This makes it a good fit for the experiment described in this dissertation, as it can be relied upon to provide a stable and secure platform for testing new consensus algorithms.
+
+
+In conclusion, using Tezos for this experiment was a strategic decision as it offers the necessary features and characteristics to carry out the experiment successfully. Its history, design, and upgradability make it an ideal candidate for this experiment, and the stateless nature of the protocol part of the codebase allows the focus to be on the consensus, rather than other components of the node.
+The results of this experiment will provide valuable insights into the potential of Tezos and its adaptability, making it an exciting step in the development of a blockchain network that can easily swap consensus algorithms.
 
