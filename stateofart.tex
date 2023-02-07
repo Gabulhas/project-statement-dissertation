@@ -3,7 +3,11 @@ INTRODUÇÃO
 \section{Core Concepts}
 % TODO: Mudar "For better understanding...."
 % TODO: Mudar "Mudar isto, visto que está desatualizado"
-This section focuses on the fundamental building blocks of decentralized systems like blockchains are. This section covers State Machine Replication (SMR), Blockchain Data Structure and Networks, Network Models, and the Concept of Consensus. Understanding these concepts is crucial for understanding how blockchains networks function and the different trade-offs and design considerations involved in creating and operating a blockchain network. The section starts with an overview of SMR and how it provides consistency and availability in decentralized systems. Then, the concept of Blockchain Data Structure and its application in decentralized networks is explored. The different Network Models in distributed systems, such as synchronous, asynchronous, and partially-synchronous, are also discussed. Finally, the section concludes with a discussion on the importance of consensus in blockchain networks.
+This section focuses on the fundamental building blocks of decentralized systems like blockchains.
+
+This section covers State Machine Replication (SMR), Blockchain Data Structure and Networks, Network Models, and the Concept of Consensus.
+Understanding these concepts is crucial for understanding how blockchains networks function, the different trade-offs and design considerations involved in creating and operating a blockchain network. The section starts with an overview of SMR and how it provides consistency and availability in decentralized systems.
+Then, the concept of Blockchain Data Structure and its application in decentralized networks is explored. The different Network Models in distributed systems, such as synchronous, asynchronous, and partially-synchronous are also discussed. Finally, the section concludes with a discussion on the importance of consensus in blockchain networks.
 
 % For a better understanding, this chapter describes the fundamental concepts of the topic of this thesis, which revolves around State Machine Replication, Blockchains and Consensus and other topics related to Networks.
 % A consensus algorithm refers to the method used by a network to reach agreement on a set of values in a distributed system. Blockchains, on the other hand, are append-only ledgers that are linked to each other by cryptographic hash functions, making them immutable. Blockchains can be considered as State Machine Replication as they store the current state of a system, and the consensus algorithm ensures that every copy of the ledger is updated consistently. The FLP theorem, Partial Synchrony, and BFT algorithms are related to the topic of consensus algorithms, and will be explained in this section. This thesis uses the Tezos blockchain as a case study, due to its ability to easily swap and upgrade its consensus algorithm, making it a suitable platform to study these topics.
@@ -12,7 +16,7 @@ This section focuses on the fundamental building blocks of decentralized systems
 %TODO: Adicionar aos acrónimos
 %TODO: Verificar o que eu disse
 %TODO: Falar do CAP System e fazer referencias
-\textbf{State Machine Replication} (SMR) is the concept of replicating data in a distributed system, where nodes in a system maintain the same state of a machine.
+State Machine Replication (SMR) is the concept of replicating data in a distributed system, where nodes in a system maintain the same state of a machine.
 
 In this approach, a node broadcasts an update to its state using a total order broadcast, and all other nodes receive the same updates in the same order and apply it to their own state.
 
@@ -20,15 +24,15 @@ In this approach, a node broadcasts an update to its state using a total order b
 
 The main advantages of using SMR, like mentioned before, are that it \textbf{can} provide both \textbf{consistency} and \textbf{availability} (in some cases it only provides availability), making it a popular choice for use in blockchain technology, databases, file systems, and other decentralized systems.
 
-Consistency, because it guarantees that every node contains the same state of the machine (not necessarily at the same time), and guarantees availability because, in case of a node failure, there are other nodes in the system that have the information.
+Consistency, because it guarantees that every node contains the same state of the machine (not necessarily at the same time), and availability is also ensured because, in case of a node failure, there are other nodes in the system that have the information.
 
 Overall, the concept of State Machine Replication is a fundamental component of decentralized systems that plays a crucial role in ensuring the consistency and availability of shared data. In case of Blockchains, to ensure that every node has the same chain and that there's no single point of failure of the whole system. This makes Blockchain Networks reliable, since in case multiple nodes fail in the network, the network can still operate, and that no single node has the power over the whole information, making the network decentralized. 
 
 
 \subsection*{\textbf{Blockchain Data Structure and Networks}}
-Blockchain is a data structure made of blocks that is often compared to a linked list, where a blockchain is made of blocks (the nodes of the list) that are connected to a previous block in the chain by a reference to it, where that reference is usually the hash of the block it is pointing to.
+Blockchain is a data structure made of blocks that is often compared to a linked list (to which the blocks are the nodes), that are connected to a previous block in the chain by referencing to it, that is usually the hash of the block it is pointing to.
 
-That is, every block, except for the first block (sometimes called ``Genesis'' block), contains the hash of it's previous (or parent) block.
+That is, every block, except for the first block (also called ``Genesis'' block), contains the hash of it's previous (or parent) block.
 
 Once a block is added to the blockchain, it cannot be altered or deleted, making the ledger tamper-resistant and immutable, since, in order to change a block's information, one would need to change every child's block hash.
 It's also possible to say that, the older the block, the more ``immutable'' it is, or the bigger the number of child blocks a block has, the harder is the tampering of such block.
@@ -41,29 +45,29 @@ There are networks, like Bitcoin and Ethereum that store and replicate the block
 The network reaches consensus on the contents of a new block through the use of consensus mechanisms, such as Proof of Work or Proof of Stake.
 The blockchain is a distributed ledger, with all nodes in the network having a copy of the ledger, ensuring availability of the state.
 
-The blockchain can be considered the state of a machine, where copies of the state of this machine is stored in multiple nodes, and newer states, that is, the process of appending a new block to the chain is replicated to every machine in the network.
+The blockchain can be considered the state of a machine, where copies of the state of this machine is stored in multiple nodes, and newer states, that is, the process of appending a new block to the chain, are replicated to every machine in the network.
 
-Beyond cryptocurrency, blockchains have a wide range of potential applications in various industries, such as supply chain management, voting systems, and identity verification. The transparent nature of blockchains ensures that all transactions are publicly accessible and verifiable. The cryptographic functions used in blockchains, such as hashing and consensus mechanisms, provide a high level of security to the ledger and its transactions, and the replication of it ensures the availability of the information.
+Beyond cryptocurrency, blockchains have a wide range of potential applications in various industries, like supply chain management, voting systems, and identity verification. The transparent nature of blockchains ensures that all transactions are publicly accessible and verifiable. The cryptographic functions used in blockchains, such as hashing and consensus mechanisms, provide a high level of security to the ledger and its transactions, and the replication of it ensures the availability of the information.
 
 In conclusion, blockchain is a data structure that leverages the concepts of state machine replication to provide availability, leverages the concepts of cryptographic concepts to make it secure, imutable and tamper-resistant ledger where all transactions are recorded, making it transparent.
 The decentralized nature of blockchains networks and the use of consensus mechanisms ensure that all nodes in the network have the same state of the chain, providing the availability to access of this information.
 
 \subsection*{\textbf{Network Models}}
 
-The concept of network types is a fundamental aspect of distributed systems and plays a crucial role in the design and implementation of these systems. There are three main types of networks in distributed systems: synchronous, asynchronous, and partially-synchronous. Each type of network has different properties and characteristics that affect the behavior of distributed algorithms and protocols, and it is important to understand these differences in order to design effective and efficient systems.
+The concept of network types is a fundamental aspect of distributed systems and plays a crucial role in their design and implementation of these systems. There are three main types of networks in distributed systems: synchronous, asynchronous, and partially-synchronous. Each type of network has different properties and characteristics that affect the behavior of distributed algorithms and protocols, and it is important to understand these differences in order to design effective and efficient systems.
 
 \textbf{Synchronous networks} are characterized by having a common notion of time and upper bounds on message delay. 
 That is, in the Synchronous model, a finite time limit $\Delta$ is established and known. The adversary can only delay the delivery of a message sent by at most $\Delta$ time.
 This means that the network can guarantee that messages will be delivered within a certain amount of time and that all nodes in the network have a consistent view of the current time. This type of network is relevant when strict timing constraints are necessary, such as in real-time systems.
 
-\textbf{Asynchronous networks}, on the other hand, do not have a common notion of time and do not guarantee upper bounds on message delay. 
+\textbf{Asynchronous networks}, on the other hand, neither have a common notion of time nor guarantee upper bounds on message delay. 
 In this type of network, messages may be delayed indefinitely, and nodes in the network may have a different view of the current time. Asynchronous networks are relevant when timing constraints are not strict, such as in data-centric systems. The unpredictability of message delays makes asynchronous networks more challenging to design and implement, but they are also more robust and can handle failures and network partitions more effectively.
 
-\textbf{Partially-synchronous networks} are a hybrid of synchronous and asynchronous networks.
+\textbf{Partially-synchronous networks} are a hybrid of synchronous and asynchronous models.
 % TODO adicionar referncias a isto
-They have a common notion of time but only provide partial guarantees on message delay. In this type of network, some messages may be delivered within a certain amount of time, while others may be delayed indefinitely. Partially-synchronous networks are relevant in scenarios where some timing constraints are necessary but not all. This type of network is often used in blockchain systems, such as Tendermint (used in Cosmos Network and others), and Tezo's blockchain take on this protocol, Tenderbake, which balance the need for speed and reliability with the need for resilience and robustness.
+They have a common notion of time but only provide partial guarantees on message delay. In this type of network, some messages may be delivered within a certain amount of time, while others may be delayed indefinitely. Partially-synchronous networks are relevant in scenarios where some timing constraints are necessary, but not all and is often used in blockchain systems, such as Tendermint (used in Cosmos Network and others), and Tezo's blockchain take on this protocol, Tenderbake, which balance the need for speed and reliability with the need for resilience and robustness.
 
-In conclusion, the concept of network types is critical in the design and implementation of distributed systems. Understanding the differences between synchronous, asynchronous, and partially-synchronous networks can help protocol designers make informed decisions about the type of network that best suits their needs and can ensure the success of their systems.
+In conclusion, the concept of network types is critical in the design and implementation of distributed systems. Understanding the differences between the three networks can help protocol designers make informed decisions about the type of network that best suits their needs and can ensure the success of their systems.
 
 \subsection*{\textbf{Consensus}}
 % TODO:  Falar dos tipos de blockchain (permissionless e permissioned) e de como se relacionam com o CAP (como têm de ser Partition Tolerant, e ser Available, a consistency is lacking)
@@ -73,7 +77,7 @@ While State Machine Replication is the concept of broadcasting the update of a s
 
 One way to implement total order broadcast, that is, to broadcast messages or updates to the state machine in a specific order, is by sending messages via a designated leader node. But if the leader becomes unavailable, the approach fails. 
 
-So nodes have to reach an agreement together, in a decentralized manner, on what is the next state of the replicated machine (or who's going to be the next leader), and not decided by a single node, and that's the coequally the concept of consensus.
+So, nodes have to reach an agreement together, in a decentralized manner, on what is the next state of the replicated machine (or who's going to be the next leader), and should not be decided by a single node, and this being the coequally the concept of consensus.
 
 Consensus protocols are \textbf{critical} to the blockchain context because they are the mechanisms that allow the network participants to agree on the state of the distributed ledger. In a blockchain network, transactions are submitted and processed by nodes in a decentralized manner, and the consensus protocol ensures that all nodes have the same view of the ledger and agree on which transactions are valid and should be included in the next block. Also, consensus algorithms enable the selection of the next leader, that is, the node that takes the transactions, builds the block and broadcasts the new block to the networks. 
 This is important for maintaining the integrity and reliability of the blockchain, as well as for enabling trust in the network among participants who may not necessarily trust each other. A well-designed consensus protocol is essential for ensuring that the blockchain is able to process transactions efficiently and securely, even in the face of network failures, attacks, or other challenges.
@@ -93,7 +97,7 @@ There are several important theorems related to consensus algorithms that are re
 % 
 % 
 
-The \textbf{FLP} Theorem states that, in an asynchronous network where messages may be delayed but not lost, it is impossible to achieve both reliability and consensus in the presence of process failures. In order words, it's only possible guarantee two of the following:
+The \textbf{FLP} Theorem states that, in an asynchronous network where messages may be delayed but not lost, it is impossible to achieve both reliability and consensus in the presence of process failures. In other words, it's only possible to guarantee two of the following:
 \begin{itemize}
     \item Finality or Agreement, that is, if (functioning) have to decide on a value, they all decide one specific one.
     \item Fault Tolerance or Integrity, the system still functions in case of node failures.
@@ -116,11 +120,12 @@ In the following sections, more insight about these theorems will be provided an
 \subsection*{Permissioned and Permissionless Blockchains}
 
 Blockchains are a type of decentralized system that uses consensus algorithms to maintain the integrity of its data. In the context of blockchains, the terms ``permissionless'' and ``permissioned'' refer to the way in which participants in the network are allowed to participate in the validation of transactions and the creation of new blocks.
-These terms are critical in understanding the trade-offs between security, scalability, and decentralization in blockchains. In this section, we will delve deeper into what "permissionless" and "permissioned" mean and the advantages and disadvantages of each approach.
+These terms are critical in understanding the trade-offs between security, scalability, and decentralization in blockchains. In this section, we will delve deeper into what ``permissionless'' and ``permissioned'' mean and the advantages and disadvantages of each approach.
 
 \textbf{Permissionless blockchains}, also known as public blockchains, are open to anyone and anyone can participate as a node. No central authority or entity is in control, making it a completely decentralized system. Permissionless blockchains are most often used for cryptocurrencies such as Bitcoin, Tezos and most of popular networks, where anyone can participate in the network and validate transactions, contributing to the security and reliability of the network.
 
-\textbf{Permissioned blockchains}, also known as private blockchains, are restricted to a set of trusted participants. Only approved entities are allowed to participate as nodes and validate transactions, making it a partially decentralized system. This type of blockchain is often used in business environments where the participants are known and trusted, and where confidentiality and privacy are important considerations. Usually this networks are faster and more secure, since usually the number of participating nodes is way smaller and the fact that nodes are ``handpicked'' they are already trusted.
+\textbf{Permissioned blockchains}, also known as private blockchains, are restricted to a set of trusted participants. Only approved entities are allowed to participate as nodes and validate transactions, making it a partially decentralized system. This type of blockchain is often used in business environments where the participants are known and trusted, and where confidentiality and privacy are important considerations. Usually this networks are faster and more secure, since the number of participating nodes is way smaller and the fact that nodes are ``handpicked'', they are already trusted.
+% TODO: Adicionar references
 Known examples are Hyperledger-Fabric, an enterprise-grade network and Binance Smart Chain, a cryptocurrency network that's a fork of Ethereum.
 
 \subsection*{Processes of Block creation}
@@ -128,25 +133,24 @@ In the context of blockchain networks, there's a need for nodes selecting the ne
 
 In this subsection, we will explore the two main ways of reaching consensus/selecting a leader in blockchain networks: proof-based consensus and committee-based consensus.
 
-\textbf{Proof-based consensus} protocols rely on the concept of proof of leadership. Nodes are selected to generate new blocks through a cryptographic random algorithm. The selection of the new leader/proposer is similar to the idea of a lottery. The node that wins such a lottery has the right to propose a new block.
-Nodes validate transactions, generate a Merkle tree for the transactions, and package them into a new block. The leader node broadcasts the new block and its proof of leadership to the network. The network then validates the new block and if it is found to be valid, it is appended to the blockchain.
+\textbf{Proof-based consensus} protocols rely on the concept of proof of leadership. Nodes are selected to generate new blocks through a cryptographic random algorithm. The selection of the new leader/proposer is similar to the idea of a lottery. The node that wins such lottery has the right to propose a new block.
+Nodes validate transactions, generate a Merkle Tree Root of these, and package them into a new block. The leader node broadcasts the new block and its proof of leadership to the network, that validates the new block, and upon validation, it appends it to the blockchain.
 
 In \textbf{committee-based consensus} protocols, nodes vote to decide the next block to be appended to the blockchain. The proposer multicasts a preparation block request to other participants, who reply with their status. If the proposer receives a sufficient number of ready messages, it enters the pre-commit phase. Participants then broadcast their votes to commit the proposed block. If the number of commit responses agreeing to the new block exceeds a threshold, the block is appended to the blockchain.
 
 \subsection*{Blockchain ``trillema''}
 
-Another subject that is usually used to compare different blockchain networks, with much discussion is the topic of the ``Blockchain trilemma''.
-This ``trilemma'' refers to the trade-off between scalability, security, and decentralization. 
-In other words, it is hard if not impossible to achieve all these three characteristics at the ``same time'' in a public/permissionless blockchain network:
+Another subject that is usually used to compare different blockchain networks, with much discussion, is the topic of the ``Blockchain trilemma'' that refers to the trade-off between scalability, security, and decentralization. 
+In other words, it is hard, if not impossible to achieve all these three characteristics at the ``same time'' in a public/permissionless blockchain network:
 \begin{itemize}
     \item Decentralization: refers to the distribution of power and decision-making authority across all participants in the network. In blockchain, this means that there is no central authority or single point of control, allowing for a more equal and democratic system.
     \item Security: refers to the robustness and reliability of the network, ensuring that data and transactions are protected from tampering, hacking, or other forms of malicious activity.
-    \item Scalability: refers to the ability of the network to handle a growing number of transactions and users without sacrificing performance or speed.
+    \item Scalability: refers to the ability of the network to handle a growing number of transactions and users, without sacrificing performance or speed.
 \end{itemize}
 
-Even though that in the context o distributed systems, the topic of decentralization isn't relevant, when talking about blockchain networks it's important, as it's one of the main reasons why people use these systems in the first place.
+Even though that in the context o distributed systems the topic of decentralization isn't relevant, when talking about blockchain networks it's important, as it's one of the main reasons why people use these systems in the first place.
 
-For example, Bitcoin is a highly decentralized and secure blockchain, as there are many nodes (Around 40 thousand (TODO: Add citation)), yet lacks on scalability, since, the creation of a block takes 10min and a transaction takes about 1 to 1.5 hours to complete (TODO: Add citation).
+For example, Bitcoin is a highly decentralized and secure blockchain, as there are many nodes (Around 40 thousand (TODO: Add citation)), yet lacks on scalability, since the creation of a block takes 10min and a transaction takes about 1 to 1.5 hours to complete (TODO: Add citation).
 
 Therefore, when designing a blockchain network, it is important to understand the trade-offs between scalability, security, and decentralization and to make trade-offs based on the specific goals and requirements of the network.
 
@@ -156,34 +160,37 @@ Therefore, when designing a blockchain network, it is important to understand th
 
 
 \subsection{\textbf{Proof of Work}}
-Proof of Work (PoW) is a consensus algorithm used by many blockchain systems, like Bitcoin and Litecoin, to secure the network and confirm transactions.
-Bitcoin or ``Nakamoto Consensus'' was the first instance of a Proof of Work Consensus.
+Proof of Work (PoW) is a consensus algorithm used by many blockchain network, Bitcoin being the most popular network to do so.
+Bitcoin or ``Nakamoto Consensus'' was the first instance of a Proof of Work Consensus and the first instance of a blockchain network.
 
-The idea behind PoW is to solve cryptographic hard problems to create a block of transactions and add it to the blockchain. The solution to these problems requires significant computational power, which is provided by nodes called "miners". These miners compete to be the first to solve the cryptographic puzzle, and the winner is selected as the leader to create a block and add it to the blockchain.
+The idea behind PoW is that, in order for a block (containing a list of transactions) to be added to the blockchain (and replicated), at least one node in the network has to package together a list of transactions into a block and solve a cryptographic hard problem in order for it to be valid.
+That is, the block has to contain a stamp or a proof that actual computational work was put in to create a block.
+That work/computational power is provided by nodes called ``miners'', and these miners compete to be the first to solve the cryptographic puzzle, where the first to solve it is selected as the leader and has the ability to add the their created block to the blockchain.
 
-In a permissionless environment, it's not possible to make a democratic system where each entity could cast a vote, since a malicious entity could create many fake identities or nodes to manipulate the network, known as a "sybil attack".
+In a permissionless environment, it's impossible to make a democratic system where each entity could cast a vote, since a malicious entity could create many fake identities or nodes to manipulate the network, known as a ``sybil attack''.
+In blockchain networks, entities make use of Public-key cryptography to be identified, so a malicious entity could create as many pairs of Public-Private keys as it wished to cast as many votes as it wanted.
+
 PoW or ``Nakamoto Consensus'' was the first to be tolerant to sybil attacks in a permissionless setting.
-It prevents these attacks by making it computationally expensive for an attacker to try to disrupt the network, since an attacker would have to do as much work as the rest of the network, and that could imply problems to the malicious entity, like large electricity costs in case of mining.
-
+It prevents these attacks by making it computationally expensive for an attacker to try to disrupt the network, since, instead of voting power being concentrated on the number of votes for an election, it's replaced by the idea of computational power, where an attacker would have to do as much work as the rest of the network in order to gain a majority, and that could imply problems to the malicious entity, like large electricity costs in case of mining.
 By requiring a significant amount of computational power to mine blocks, PoW ensures that only legitimate nodes with real computational resources will be able to participate in the network.
-
 Mining is what is called coequally to the process of using computational power to solve cryptographic puzzles and adding blocks to the blockchain.
 
-It is used for several purposes in PoW, such as leader selection and preventing sybil attacks, like mentioned before, but also enforcing block timing with difficulty adjustment and in case of cryptocurrency blockchains, to add new value/mint new currency into the system. 
+In other words, instead of entities voting for a block to be added to the blockchain, the ``vote'' is done by solving puzzles, where the first to solve such puzzle is the one deciding the block to be added.
 
-In leader selection, the miner who solves the puzzle first becomes the leader to add the next block to the blockchain, and since one can only add blocks to the blockchain by solving the puzzle, this prevents sybil attacks, as, no matter a mallicious entity tries to create as many entities it can, this doesn't affect the mining.
-The difficulty adjustment ensures that the time between blocks is consistent, and the computational difficulty to mine new blocks adjusts accordingly. When in a epoch (in Bitcoin, that is 2016 blocks), the median time taken to mine a block was lower than it should've been, the difficulty is increased proportionally to make it harder to mine, and vice versa.
-The mining also introduces/mints new currency into the system, since the system doesn't have any value in it (it's a closed system), and that currency is awarded to the participants of the mining process.
+Mining has several purposes in PoW, such as leader selection and preventing sybil attacks, like mentioned before, but also enforcing block timing with difficulty adjustment and in case of cryptocurrency blockchains, to add new value/mint new currency into the system. 
 
+The difficulty adjustment ensures that the time between blocks is consistent (in Bitcoin, that is 10min), and the computational difficulty to mine new blocks adjusts accordingly. When in a epoch (in Bitcoin, that is 2016 blocks), the median time taken to mine a block was lower than it should've been, the difficulty is increased proportionally to make it harder to mine, so it actually takes the pretended time, and vice versa.
+
+The mining also introduces/mints new currency into the system, since itself doesn't have any value in it initially (it's a closed economic system), and that currency is awarded to the participants of the mining process.
 
 
 \subsection*{Properties of Proof of Work Consensus}
 
-The properties of Proof of Work (PoW) consensus can be analyzed through the FLP theorem and the CAP theorem, which were discussed in the previous section.
+The properties of PoW consensus can be analyzed through the FLP theorem and the CAP theorem, which were discussed in the previous section.
 
 Regarding the FLP theorem, PoW exhibits Probabilistic Finality. This means that all functioning nodes eventually agree on a single block, but the process is not deterministic and involves a certain degree of probability. The waiting for confirmations adds an additional layer of security to the consensus process. For example, in Bitcoin this takes about 6 confirmations (or 60 minutes (TODO: add reference)). This happens because mining is a process independent from the state of the network and independent from other nodes, and two or more nodes can solve the cryptographic puzzle/build a block ``at the same time'' (until the whole network agrees on the same block).
 When this happens, a node can receive more than one valid candidate extending the same chain, and each protocol handles this in a specific way. This is what is called a ``Fork''.
-For example, in Bitcoin, a node handles this case by using the rule of the longest chain (Longest Chain Rule), where, when a node has two competing blocks, where each makes a branch, it waits until one of the branch is bigger than the other.
+Once again, taking Bitcoin as an example, a node handles this case by using the rule of the longest chain (Longest Chain Rule), where, when a node has two competing blocks, where each makes a branch, it waits until one of the branch is bigger than the other.
 This is done because, the branch with the most computational power is the one with the bigger chance of being extended.
 
 PoW also demonstrates Fault Tolerance, making it a form of Byzantine Fault Tolerance (BFT). This is achieved through the complex and expensive mining process, which makes it economically infeasible for a malicious node to alter the data in a block and catch up with the rest of the network. The incentive to follow the longest blockchain also adds to the fault tolerance of the consensus mechanism.
@@ -195,13 +202,15 @@ However, it does provide Availability, as miners are continuously trying to mine
 PoW is also Partition Tolerant, meaning that even if a portion of the nodes stop functioning or the network splits, the blockchain can still function and recover.
 
 \subsection*{Nakamoto Consensus}
-In the previous subsection, we discussed the consensus mechanism used in blockchain technology where participants in the network compete to solve complex mathematical puzzles in order to validate transactions and generate new blocks. We introduced the concept of miners, who play a crucial role in this process, and how they are incentivized through rewards for their efforts.
+In the previous subsection, we discussed the consensus mechanism used in blockchain technology where participants in the network compete to solve complex mathematical puzzles in order to validate transactions and generate new blocks.
+We introduced the concept of miners, who play a crucial role in this process, and how they are incentivized through rewards for their efforts.
 
 Building on this foundation, we now delve into the specifics of the Nakamoto Consensus, named after the pseudonym used by the unknown creator(s) of Bitcoin. The Nakamoto Consensus is a milestone in the history of blockchain technology and a major innovation in the field of consensus algorithms.
 
-In the Bitcoin network, miners are responsible for generating blocks by solving complex puzzles, which require a large amount of computational power.
+The Bitcoin network is a Peer-to-Peer network, where blocks and transactions are gossiped by the nodes and where they are also responsible for generating blocks, just like mentioned previousky.
+
 This acts as a barrier to entry for malicious actors, as it becomes extremely difficult for them to launch Sybil attacks by generating many fake nodes.
-The puzzle in Bitcoin involves computing a nonce that meets certain conditions, as outlined by the equation H(hi−1,nonce,tx,par) < Target, where hi−1 is the hash of the previous block, tx represents the set of validated transactions, and par represents other parameters such as blockchain version and cryptographic parameters.
+The puzzle in Bitcoin involves computing a nonce (basically, a number) that meets certain conditions, as outlined by the equation H(hi−1,nonce,tx,par) < Target, where hi−1 is the hash of the previous block, tx represents the set of validated transactions, and par represents other parameters such as blockchain version and cryptographic parameters.
 The usual workflow of a node is the following:
 \begin{itemize}
     % TODO fazer referncias sobre o header do bloco da bitcoin
@@ -210,9 +219,12 @@ The usual workflow of a node is the following:
     \item To start the mining process, a node selects multiple transactions for the transaction part of the block. There's a size limit in bytes for this part, and the selection parameters are irrelevant, they only have to be valid.
     \item It creates a new block header with information, like, the hash of the previous block, a nonce (a integer number) and a Merkle Tree Root Hash of the transactions and other information (that is irrelevant to this).
     \item The node starts trying out every possible value for the nonce until the resulting hash of the header has a value bellow the current target.
-    \item If a node receives a new block from the network before it finds itself the nonce, it stops the mining and appends such block. If it finds the nonce, it shares the block with the network
+    \item If a node receives a new block from the network before it finds itself the nonce, it stops the mining and appends such block. If it finds the nonce, it shares the block with the network and it's reward.
     
 \end{itemize}
+
+When a entity creates a transactions, it can also offer a fee. This is used to prevent transactions spamming and also acts as a ``spot in the block'' auction.
+Besides block creation reward, the miner also receives the transactions fees, so miners will select transactions based on that fee, and other attributes of the transactions.
 
 The difficulty of the puzzle is adjusted periodically (every 2016 blocks like mentioned before), depending on the actual block generation intervals and the expected block generation intervals of around ten minutes. This allows Bitcoin to maintain a consistent block generation time of around ten minutes, regardless of the computational power in the network.
 
@@ -220,9 +232,9 @@ The difficulty of the puzzle is adjusted periodically (every 2016 blocks like me
 
 The Nakamoto Consensus protocol, despite being the first consensus mechanism for blockchains and widely adopted, has limitations when it comes to scalability, security, and decentralization.
 
-There are multiple ways of improving the Nakamoto Consensus protocol, and doing so has resulted in the creation of new blockchain networks. These changes move the consensus protocol within the triangle formed by the "trillema", but they also come with new challenges compared to the original consensus for blockchains.
+There are multiple ways of improving the Nakamoto Consensus protocol, and doing so has resulted in the creation of new blockchain networks. These changes move the consensus protocol within the triangle formed by the ``trillema'', but they also come with new challenges compared to the original consensus for blockchains.
 
-This topic is relevant to this dissertation since it's these characteristics differentiate consensus even further.
+This topic is relevant to this dissertation since it's these characteristics that differentiate consensus even further.
 
 \subsection*{Improving Scalability}
 Blockchain networks have faced scalability issues since their inception. A consensus mechanism must maintain security and decentralization, so it's challenging to scale the network and improve the transaction processing speed. To overcome this challenge, several solutions have been proposed, including decoupling blockchain functions, parallel chains, and DAG-based protocols.
@@ -240,15 +252,18 @@ For example, some blockchain networks have adopted a new consensus algorithm tha
 
 \subsection*{Improving Decentralization}
 % TODO: add asic to acronyms
-To improve decentralization, several solutions have been proposed, including de-incentivizing centralized activities like pool mining and incentivizing decentralized/solo mining using methods like eradicating ASIC mining.
+To improve decentralization, several solutions have been proposed, including de-incentivizing centralized activities like pool mining and incentivizing decentralized/solo mining using methods like eradicating ASIC (Application-Specific Integrated Circuits) mining.
 
 Pool mining is a point of centralization in Proof of Work networks. The basic idea of pool mining is that there's a single node (connected in the network) that communicates with multiple miners, that is, entities which their only purpose is to find a nonce.
 These miners get together to mine a single block as if they were only a single node, so together they have more computational power, and inherently having a bigger change of finding a block. When a block if found by the pool (the node, as viewed from the network), the reward is shared with all the miners, depending on how much effort they put into the mining.
-The problem comes with the fact that most mining nowadays in Bitcoin is done like this, and so, the owners of these pool nodes have a lot of power.
+The problem comes with the fact that most mining nowadays, in Bitcoin, is done like this, and so, the owners of these pool nodes have a lot of power over the network.
 
-
-Also, with the increase of Hashing power, that is, the computational power of blockchains, in specific ``Bitcoin'', miners have improved the mining process by developing highly specialized hardware, called ``Application-Specific Integrated Circuits'' (ASIC).
+Also, with the increase of Hashing power, that is, the computational power of blockchains, in specific ``Bitcoin'', miners have improved the mining process by developing highly specialized hardware, called ASICs.
 
 By doing so, it's infeasible for anyone to join the mining process, and centralizing the power on the owners of ASICs. So there are multiple efforts to erradicate this type of mining like by using memory-hard puzzles, that are harder for ASIC hardware than for Personal Computer Hardware (like GPUs or CPUs), or using hash functions that are hard to implement as ASICs.
 
 \subsection{\textbf{Proof of Stake}}
+
+\subsection{\textbf{}}
+
+
