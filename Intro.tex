@@ -2,53 +2,42 @@
 \label{chap:int}
 
 
-Blockchains have gained significant attention in recent years for their potential to revolutionize various industries by providing a secure and transparent method for storing and transferring information and assets.
-At their core, blockchains are decentralized and permissionless ledger systems that leverage cryptography, consensus algorithms and State Machine Replication to maintain a shared history of all transactions on the network.
+Blockchains are a revolutionary technology that have the potential to transform various industries by providing a secure and transparent platform for storing and exchanging information and assets. Decentralized in nature, blockchains use cryptography, consensus algorithms, and State Machine Replication to create a shared ledger system, eliminating the need for a trusted intermediary.
 
-The increasing popularity of blockchains can be attributed to the growing demand for secure and transparent systems in various industries, particularly finance, supply chain management, digital identity and, recently, digital assets with the use of Non-Fungible Tokens (NFT).
+In recent years, the demand for secure and transparent systems has led to the growing popularity of blockchains, especially in finance, supply chain management, digital identity, and digital assets. The decentralization of blockchains reduces the risk of single points of failure and ensures the integrity of data stored on the network.
 
-In addition, the distributed nature of blockchains enables them to operate in a trustless environment, reducing the risk of single point of failure and ensuring the integrity of data stored on the network.
+Consensus algorithms play a critical role in the functioning of blockchains, determining the process of validating transactions, adding new blocks to the chain, and other crucial aspects like the selection of the next block producer. Different consensus algorithms offer varying levels of security, scalability, and decentralization, making the choice of the right algorithm for a specific use case crucial for the success of a blockchain network.
 
-Consensus algorithms play a crucial role in the functioning of blockchains, as they determine the process by which transactions are validated, new blocks are added to the chain, and other details such as the selection of the next block producer.
 
-Different consensus algorithms offer varying levels of security, scalability, and decentralization, and choosing the right algorithm for a specific use case is critical for the success of a blockchain network.
+The main objective of this dissertation is to develop tools and methods to easily swap, test, develop, and compare different consensus algorithms in a live environment using actual nodes on a network. This study aims to provide insight into the field of blockchains and consensus algorithms, contributing to the advancement of more secure, scalable, and efficient blockchain systems. The Tezos \cite{goodman2014tezos} blockchain node will serve as a testbed for this project, and the focus will be on examining the potential of consensus algorithms to be swapped and changed on demand.
 
-The main objectives of this dissertation are to compare different consensus algorithms for blockchains,
-evaluate the trade-offs between security, scalability, decentralization and explore the potential for consensus algorithms to be plugged and changed on demand.
-Additionally, the dissertation will cover the implementation and testing of a blockchain network with a pluggable consensus protocol and a thorough examination of the Tezos(REFERENCIA) blockchain as a testbed for consensus algorithms.
-
-This dissertation will provide valuable insights into the field of blockchains and consensus algorithms, contributing to the development of more secure, scalable, and efficient blockchain systems, such as tools and methods to test consensus algorithms, to develop algoritms and to include them in already developed blockchain nodes.
+This dissertation will provide valuable insights into the field of blockchains and consensus algorithms, contributing to the development of more secure, scalable, and efficient blockchain systems. From tools and methods to test consensus algorithms to the development of algorithms and their integration into existing blockchain nodes, this dissertation will leave a lasting impact on the future of blockchains.
 
 \section*{Motivation}
 
-Despite the growing popularity of blockchains, there is currently a lack of tools and methods for easily swapping and testing different consensus algorithms in a live environment.
-This makes it difficult to determine which algorithm is best suited for a specific use case, particularly in the context of the blockchain trilemma, where it is challenging to achieve optimal balance between scalability, security, and decentralization.
+% Despite the growing popularity of blockchains, there is currently a lack of tools and methods for easily swapping and testing different consensus algorithms in a live environment.
+% This makes it difficult to determine which algorithm is best suited for a specific use case, particularly in the context of the blockchain trilemma, where it is challenging to achieve optimal balance between scalability, security, and decentralization.
+% 
+% Additionally, developing consensus algorithms can be a complex and time-consuming task, and there is currently no standardized method for describing and implementing them.
+% This presents a significant barrier to the adoption and evolution of blockchains, as it limits the ability of developers to experiment with new and innovative consensus algorithms. 
+% Also, the decentralization being one of the strenghts points of blockchain networks falls in the hands of a few selected developers.
+% 
+% This dissertation aims to address these challenges by providing a comprehensive analysis of different consensus algorithms for blockchains, and exploring the potential for consensus algorithms to be plugged and changed on demand.
+% The results of this study will serve as valuable feedback for the development of a domain-specific language for describing consensus algorithms, and will provide insights into the most effective methods for testing consensus algorithms in a live environment.
+% 
+% The importance of this research cannot be overstated, as the ability to easily swap and test consensus algorithms is critical for the continued growth and evolution of blockchains.
+% This will not only benefit the academic community but also industry stakeholders, who will be able to make informed decisions about which consensus algorithm is best suited for their specific use case.
+% 
+% In conclusion, this dissertation is motivated by the growing need for a comprehensive analysis of consensus algorithms for blockchains, and the desire to explore new and innovative methods for swapping testing protocols in a non-simulated way.
+% The objective of this study is to contribute to the development of a standardized method for describing and testing consensus algorithms, ultimately advancing the field of blockchains and improving the security, scalability, and decentralization of blockchain networks.
+% 
 
-Additionally, developing consensus algorithms can be a complex and time-consuming task, and there is currently no standardized method for describing and implementing them.
-This presents a significant barrier to the adoption and evolution of blockchains, as it limits the ability of developers to experiment with new and innovative consensus algorithms. 
-Also, the decentralization being one of the strenghts points of blockchain networks falls in the hands of a few selected developers.
+Blockchain technology has rapidly gained popularity in recent years, yet the development and implementation of consensus algorithms for blockchains remains a complex and time-consuming task. The lack of tools and methods for easily swapping and testing different consensus algorithms in a live environment presents a significant barrier to the adoption and evolution of blockchains, limiting the ability of developers to experiment with new and innovative consensus algorithms. This is particularly concerning given the importance of consensus algorithms in achieving optimal balance between scalability, security, and decentralization, also known as the blockchain trilemma.
 
-This dissertation aims to address these challenges by providing a comprehensive analysis of different consensus algorithms for blockchains, and exploring the potential for consensus algorithms to be plugged and changed on demand.
-The results of this study will serve as valuable feedback for the development of a domain-specific language for describing consensus algorithms, and will provide insights into the most effective methods for testing consensus algorithms in a live environment.
+This document aims to address these challenges by exploring the potential for consensus algorithms to be plugged and changed on demand. The study will provide valuable insights into the most effective methods for testing consensus algorithms in a live environment, and contribute to the development of a domain-specific language for describing consensus algorithms. The results of this research will benefit both the academic community and industry stakeholders, who will be able to make informed decisions about which consensus algorithm is best suited for their specific use case.
 
-The importance of this research cannot be overstated, as the ability to easily swap and test consensus algorithms is critical for the continued growth and evolution of blockchains.
-This will not only benefit the academic community but also industry stakeholders, who will be able to make informed decisions about which consensus algorithm is best suited for their specific use case.
+The objective of this study is to advance the field of blockchains by improving the security, scalability, and decentralization of blockchain networks. The importance of this research cannot be overstated, as the ability to easily swap and test consensus algorithms is critical for the continued growth and evolution of blockchains.
 
-In conclusion, this dissertation is motivated by the growing need for a comprehensive analysis of consensus algorithms for blockchains, and the desire to explore new and innovative methods for swapping and testing protocols in a non-simulated way.
-The objective of this study is to contribute to the development of a standardized method for describing and testing consensus algorithms, ultimately advancing the field of blockchains and improving the security, scalability, and decentralization of blockchain networks.
-
-\section*{Problem Statement}
-% TODO: REMOVER REPETIÇÃO DAS COISAS e REFERENCIAS
-(REMOVER)
-Consensus algorithms, being a fundamental aspect of blockchain technology, are subject to a range of emerging problems. Hardforks, network Denials of Service attacks, centralization of networks, and other relevant issues are challenging the stability and security of these systems. The choice between scalability, security, and decentralization, as described by the Blockchain Trilema, can lead to trade-offs in the design of consensus algorithms.
-
-One of the challenges of consensus algorithms is the difficulty of changing the rules of the game after a blockchain network has been established. The hard forks of the Bitcoin, Bitcoin Cash, and Bitcoin SV networks have highlighted this issue. Similarly, the Ethereum network has also undergone several hard forks, leading to a split in its community.
-
-Scalability issues are another challenge faced by some blockchain networks, including Bitcoin and Ethereum, which have struggled to accommodate increasing demand. In addition, some networks, such as Solana, have experienced outages, further highlighting the need for a more robust and reliable consensus system.
-
-This dissertation aims to address these challenges by exploring the development of consensus algorithms and ways to test them. The Tezos blockchain provides a suitable platform for this work, as it has a pluggable consensus system and allows for the implementation of different consensus algorithms. The goal is to learn how to develop consensus protocols in Tezos, develop the main entry points for a possible connection with a Domain Specific Language, and develop ways to test consensus algorithms. 
-The first subject of such tests will be a proof-of-work consensus algorithm.
-
-The question we want to answer in this dissertation is the following: How can we make a blockchain network that is flexible in terms of consensus algorithm selection and provides a platform for testing and comparison of different consensus algorithms? By addressing this question, we aim to provide a solution that will allow blockchain networks to be more scalable, secure, and decentralized, thereby addressing the challenges posed by the trilema. Additionally, this dissertation will serve as input/feedback for later work on a Domain Specific Language that will be used to describe consensus algorithms, making it easier to develop and test consensus algorithms in the future.
+In conclusion, this project is motivated by the growing need for a comprehensive analysis of consensus algorithms for blockchains and the desire to explore new and innovative methods for swapping and testing protocols in a live environment. The goal is to contribute to the development of a standardized method for describing and testing consensus algorithms, ultimately reducing barriers to the adoption and evolution of blockchains.
 
 \section{Document Organization}
