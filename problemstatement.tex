@@ -1,5 +1,7 @@
 \chapter{Problem Statement, Experiments and Work Plan}
 
+The Problem Statement, Experiments, and Work Plan chapter is a crucial component of the thesis as it outlines the research problem, the proposed solution, and the plan for executing the research. In this chapter, we aim to present a clear and concise description of the problem we are solving, why it is important, and why the proposed solution is a valid one. The chapter will also include a detailed description of the experiments that will be conducted to validate the solution, as well as the work plan that outlines the tasks and the timeline for executing the research.
+
 \section{The Problem}
 The development of blockchain technology has led to the creation of a large number of consensus protocols, each with its unique characteristics, from the selection of the leader, to the type of network, data structure, block structure, time between each block, and multiple ways to have a chain, to name just a few. Newer and innovative protocols are designed ``everyday'' with totally different characteristics compared to previous protocols.
 This abundance of choices has made it difficult for individuals or organizations looking to start their own blockchain to determine which protocol is the best fit for their needs, as there's a lot to account for.
@@ -39,11 +41,11 @@ In conclusion, this experiment will serve as a demonstration of the flexibility 
 \subsection*{\textbf{Tezos Blockchain as a tool for the Experiment}}
 The choice of Tezos as the blockchain network for this experiment is a deliberate one, as it aligns well with the goals of the solution presented in the previous section.
 
-To understand why Tezos was chosen, it is important to first explain what Tezos is. Tezos is a blockchain network that was launched in 2018. The history of Tezos began with the idea of creating a generic and self-amending crypto-ledger, which could be improved and upgraded over time without causing any disruption to its community. This makes Tezos stand out from other blockchain networks, which often struggle with the challenges of upgrading their underlying technology. The idea behind Tezos is to provide a blockchain network that is not only secure but also flexible and upgradable. The network is designed to be self-amending, meaning that changes to its protocol can be made without the need for a hard fork. Tezos originally operates on a Proof of Stake consensus, but the specifics of this consensus are irrelevant since we are taking it out and swapping with different consensus protocols.
+To understand why Tezos was chosen, it is important to first explain what Tezos is. Tezos is a blockchain network that was launched in 2018. The history of Tezos began with the idea of creating a generic and self-amending crypto-ledger, which could be improved and upgraded over time without causing any disruption to its community. This makes Tezos stand out from other blockchain networks, which often struggle with the challenges of upgrading their underlying technology. The idea behind Tezos is to provide a blockchain network that is not only secure, but also flexible and upgradable. The network is designed to be self-amending, meaning that changes to its protocol can be made without the need for a hard fork. Tezos originally operates on a Proof of Stake consensus, but the specifics of this consensus are irrelevant since we are taking it out and swapping with different consensus protocols.
 % TODO: explain what hard fork is
 
 
-When compared to other blockchain networks, Tezos stands out as a really good fit for this experiment. It is commercially and industrially used and its upgradability makes it suitable for the replacement of the consensus algorithm. Additionally, the consensus in the codebase is independent and the whole project is designed for the replacement of such. 
+When compared to other blockchain networks, Tezos stands out as a really good fit for this experiment. It is commercially and industrially used and its upgradability makes it suitable for the replacement of the consensus algorithm. Additionally, the protocol in the codebase is independent and the whole project is designed for the replacement of such. 
 The idea of the protocol in Tezos is stateless, meaning that it is independent from other parts of the node like the Peer-to-Peer layer, the client, the validation layer, and the storage of the blockchain state on disk.
 This makes it easy to focus on writing the actual protocol and eliminates the need to worry about other components.
 
@@ -266,4 +268,22 @@ The baker performs the task of baking (how it's called in the whole Tezos projec
 In conclusion, this experiment proved to be a valuable exercise as it allowed us to gain a deeper understanding of how consensus protocols work and how they can be implemented within a blockchain network. The implementation of the protocol allowed us to test its capabilities, limitations and to identify areas for improvement. Furthermore, it demonstrated the versatility and flexibility of the Tezos network in accommodating custom consensus protocols, making it an ideal platform for experimentation and innovation.
 
 \section{Future Tasks}
+
+The research plan outlined below highlights the tasks that we intend to undertake in this thesis project. However, it should be noted that the direction of the project may evolve and change as we progress, leading to potential modifications to the plan. Nonetheless, this serves as a starting point for our research journey.
+
+\textbf{Task 1}: Implementation of the Proof of Work (experiment) protocol in Tezos. The goal of this task is to implement a Proof of Work protocol in the Tezos blockchain, which is a well-known platform for experimenting with new consensus algorithms.
+
+\textbf{Task 2}: Testing of the Proof of Work protocol. In this task, we will test the Proof of Work protocol that was implemented in the previous task, to ensure that it is functioning correctly.
+
+\textbf{Task 3}: Development of a generic framework for adding new consensus algorithms. The aim of this task is to make it easier and more straightforward to add new consensus algorithms to the Tezos platform. This will be achieved by developing a generic framework that can be easily adapted to support new protocols.
+
+\textbf{Task 4}: Creation of a platform for testing consensus algorithms. In this task, we will create a platform that will allow us to test various consensus algorithms, including the Proof of Work protocol that was implemented in task 1. This platform will be used to compare the performance and efficiency of different protocols.
+
+\textbf{Task 5}: Integration of a Domain-Specific Language (DSL) for consensus algorithms. The goal of this task is to make it easier to integrate new consensus algorithms into the Tezos platform, by using a DSL that can be adapted to support different protocols. The knowledge gained from the development of the generic framework for adding new consensus algorithms in task 3 will be used as input for this task.
+
+\textbf{Task 6}: Development of additional tools for blockchain consensus algorithms. In this task, we will continue to build on the knowledge gained from the previous tasks, and develop additional tools that can be used to improve the performance and efficiency of blockchain consensus algorithms.
+
+\textbf{Task 7}: Writing of the thesis. The thesis will present the research results and provide conclusions based on the work performed in the previous tasks. The writing of the thesis will be a final step, but will be done concurrently with the other tasks.
+
+In addition to these tasks, we may consider incorporating additional features or making improvements to existing features, depending on the results of our research and the progress of our work. The aim is to continue advancing the state of the art in the field of blockchain consensus algorithms, and to provide a comprehensive understanding of the various protocols and tools that are available for improving the performance and efficiency of blockchain networks.
 
