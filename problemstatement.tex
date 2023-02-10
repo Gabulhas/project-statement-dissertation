@@ -63,7 +63,7 @@ The results of this experiment will provide valuable insights into the potential
 
 \subsection*{How it's structured and How it allows self-amending}
 
-Tezos has a unique structure, which separates the protocol, or how the Tezos project calls it, ``Economic Protocol'' from the rest of the node, known as the shell. 
+Tezos has a unique structure, which separates the protocol, or how the Tezos project calls it, ``Economic Protocol'' from the rest of the node, known as the shell. The diagram \ref{fig:octupus} illustrates the Tezos architecture, and it's explained in greater detail here \cite{nomadiclabsdocs}.
 The protocol is responsible for interpreting transactions and administrative operations, as well as detecting erroneous blocks.
 
 The shell includes the validator, which selects the valid head with the highest absolute score, the peer-to-peer layer, the disk storage of blocks, and the versioned state of the ledger. The distributed database abstracts the fetching and replication of new chain data to the validator.
@@ -85,6 +85,15 @@ The protocols are linked to the node at the time of compilation, and some protoc
 
 Protocol activation in Tezos is a two-step process. Firstly, a command injects an ``activation block'' to the blockchain. This block contains only one operation, which is to activate the next protocol. The activation block is the only block using the genesis protocol, as this protocol doesn't contain any other functionality besides the activation of a different protocol.
 Secondly, the next block in the blockchain will be the first block using the activated protocol. The activation command requires the hash of the protocol to be activated, and the protocol must be registered.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth,keepaspectratio]{imagens/octupus.pdf}
+    \caption{Architecture of Tezos (Source: Tezos Documentation)}
+    \label{fig:octupus}
+
+\end{figure}
 
 In conclusion, the structure of Tezos is unique in that it separates the protocol, also known as the ``Economic Protocol'', from the rest of the node, called the shell. The protocol is responsible for interpreting transactions and administrative operations, while the shell includes the validator, peer-to-peer layer, disk storage of blocks, and versioned state of the ledger. The economic protocol on the chain is subject to amendment procedures, allowing for on-chain operations to switch from one protocol to another. The RPC layer allows clients, third-party applications, and daemons to interact with the node and its state. The communication between the shell and the protocol is based on the Updater.PROTOCOL interface, and the protocol is restricted to a specific environment to improve security. A Tezos node can contain multiple economic protocols, but only one of them is activated at any given time through a two-step activation process.
 

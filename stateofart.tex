@@ -38,6 +38,15 @@ That is, every block, except for the first block (also called ``Genesis'' block)
 
 Once a block is added to the blockchain, it cannot be altered or deleted, making the ledger tamper-resistant and immutable, since, in order to change a block's information, one would need to change every child's block hash.
 It's also possible to say that, the older the block, the more ``immutable'' it is, or the bigger the number of child blocks a block has, the harder is the tampering of such block.
+Figure \ref{fig:blockchain} illustrates the blockchain datastructure, where it's possible that the last block ``Block N'' points to it's parent, and so on.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth,keepaspectratio]{imagens/blockchain.png}
+    \caption{Blockchain Datastructure.}
+    \label{fig:blockchain}
+
+\end{figure}
 
 Since it is used to record transactions, a blockchain can be considered a ``ledger'', and it's transparent, as all transactions are recorded.
 
@@ -109,6 +118,17 @@ On the other hand, the \textbf{CAP} Theorem states that, in an asynchronous netw
     \item Partition Tolerance - the system continues to operate despite arbitrary partitioning due to network failures.
 \end{itemize}
 
+Figure \ref{fig:theorems} illustrates these theorems/propreties.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth,keepaspectratio]{imagens/flp-and-cap.png}
+    \caption{FLP and CAP theorems}
+    \label{fig:theorems}
+
+\end{figure}
+
+
 
 These (and other) theorems provide limits and trade-offs in decentralized systems, and serve as a useful reference for designers and researchers in the field.
 In the following sections, more insight about these propreties will be provided and why they are relevant to the topic of Blockchain networks.
@@ -149,6 +169,16 @@ Even though that in the context o distributed systems the topic of decentralizat
 For example, Bitcoin is a highly decentralized and secure blockchain, as there are many nodes (More than 40 thousand  \cite{bitnodes}, as of the writing of this document), yet lacks on scalability, since the creation of a block takes 10min and a transaction takes about 1 to 1.5 hours to complete/be confirmed \cite{gondek}\label{exampleoftime}.
 
 Therefore, when designing a blockchain network, it is important to understand the trade-offs between scalability, security, and decentralization and to make trade-offs based on the specific goals and requirements of the network.
+
+Figure \ref{fig:trillema} illustrates this trillema. It's common to assign blockchain network as a point in the area of this triangle. For example, since Bitcoin is secure and decentralized, yet lacks scalability, one could assign a point near the line between ``secure'' and dec
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth/2,keepaspectratio]{imagens/trilemma.png}
+    \caption{Blockchain trillema}
+    \label{fig:trillema}
+
+\end{figure}
 
 
 
