@@ -135,7 +135,7 @@ These terms are critical in understanding the trade-offs between security, scala
 \textbf{Permissionless blockchains}, also known as public blockchains, are open to anyone and anyone can participate as a node. No central authority or entity is in control, making it a completely decentralized system. Permissionless blockchains are the most popular type of network and are most often used for cryptocurrencies such as Bitcoin, Tezos and others, where anyone can participate in the network and validate transactions, contributing to the security and reliability of the network.
 
 \textbf{Permissioned blockchains}, are restricted to a set of trusted participants. Only approved entities are allowed to participate as nodes and validate transactions, making it a partially decentralized system. This type of blockchain is often used in business environments where the participants are known and trusted. Usually this networks are faster and more secure (yet, lack decentralization), since the number of participating nodes is way smaller and the fact that nodes are ``handpicked'', they are already trusted.
-% TODO: Adicionar references
+
 Known examples are Hyperledger-Fabric \cite{androulaki2018hyperledger}, an enterprise-grade network and Binance Smart Chain \cite{bnb-chain_2022}, a cryptocurrency network that's a fork of Ethereum.
 
 \subsection*{Processes of Block creation}
@@ -253,7 +253,6 @@ The puzzle in Bitcoin involves computing a nonce (basically, a number) that meet
 
 The usual workflow of a node is the following:
 \begin{itemize}
-    % TODO fazer referncias sobre o header do bloco da bitcoin
     \item Node gossip transactions in the network (They are temporally stored in a data structure that is called ``Mempool'').
     \item When a node receives a block from the network, it appends it to it's own blockchain stored.
     \item To start the mining process, a node selects multiple transactions for the transaction part of the block. There's a size limit in bytes for this part, and the selection criteria is irrelevant, they only have to be valid.
@@ -294,7 +293,6 @@ The FruitChain \cite{pass2017fruitchains} protocol is a blockchain protocol that
 With FruitChain, any honest set of nodes controlling a certain fraction of computational power is guaranteed to get at least that fraction of the block generation and rewards in any length segment of the chain, making it harder for coalitions between miners to happen.
 
 \subsection*{Improving Decentralization}
-% TODO: add asic to acronyms
 To improve decentralization, several solutions have been proposed,
 including de-incentivizing centralized activities 
 like pool mining and incentivizing decentralized/solo mining using methods like eradicating ASIC (Application-Specific Integrated Circuits) mining.
@@ -404,6 +402,10 @@ There are many alternative consensus algorithms that are used in the blockchain 
 While some, like Proof of Burn and Proof of Research, offer environmentally friendly alternatives, others, like Proof of Capacity/Space/Sto\-rage, offer a totally different concept of proof.
 Trusted Computing Algorithms, like POET, provide secure consensus mechanisms, but rely on trusted hardware that may not be readily available and making it more centralized, as it relies on specific companies to build this kind of hardware.
 Ultimately, the choice of consensus algorithm will depend on the specific use case and requirements of the blockchain platform.
+
+
+
+
 
 \subsection*{\textbf{Lupin Language}}
 \label{lupin}

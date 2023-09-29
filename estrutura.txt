@@ -154,4 +154,42 @@ Core Concepts e State of the Art
     - Make it more easy and generic to add newer consensus algorithms
     - Make a platform to test those algorithms
     - Make other tools
+###############33
 
+Chapter 5: Tool Development
+5.1 Introduction
+5.1.1 Rationale for Tool Development
+5.1.2 Tool Objectives
+5.2 Bootstrapper
+5.2.1 Functionality
+5.2.2 Code Snippets or Pseudocode
+5.3 Testers/Platform Thing
+5.3.1 Functionality
+5.3.2 Endpoint Descriptions
+5.4 Integration
+5.4.1 How Both Tools Work Together
+5.4.2 Use-cases
+
+    5.5 Use Case: Developing and Testing a New Protocol
+    5.5.1 Introduction
+    Rationale for developing a new protocol (Proof of Authority)
+    How the tools (Bootstrapper and Live Testing Tool) facilitate this development
+    5.5.2 Objectives
+    What you aim to achieve with this new protocol
+    How you plan to use the tools to meet these objectives
+    5.5.3 Methodology
+    Steps taken to develop the new protocol using the Bootstrapper
+    How the Live Testing Tool is configured for this specific test
+    5.5.4 Metrics and Evaluation Criteria
+    Metrics to evaluate the protocol's performance
+    Criteria for assessing the effectiveness of the tools in this context
+    5.5.5 Results and Observations
+    Performance metrics of the new protocol
+    Insights gained from using the tools
+    5.5.6 Discussion
+    Interpretation of the results
+    How the tools proved beneficial in this development
+    5.5.7 Conclusion
+    Summary of how the tools were effectively used in developing and testing a new protocol
+    Future work or improvements
+    This structure places the emphasis on the tools you've developed, using the new protocol as a practical example of how these tools can be employed.
