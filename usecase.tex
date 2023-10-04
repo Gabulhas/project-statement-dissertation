@@ -1,0 +1,79 @@
+\chapter{Use Case: Developing and Testing a New Protocol}
+
+Building on the previous chapter's conclusion, the focus of this chapter is to demonstrate the practical utility of the tools we've developed—namely, the Bootstrapper and the Live Testing Tool—in a real-world development scenario. The objective is to provide a comprehensive view of how these tools can be seamlessly integrated to facilitate the development and testing phases of a blockchain protocol.
+
+To achieve this, we chose to implement a Proof of Authority protocol. While this protocol shares some similarities with the previously implemented Proof of Work, its core consensus mechanism is fundamentally different. This serves as an excellent case study to showcase the capabilities of our tools. The Bootstrapper was used to automate the initial setup and coding tasks, while the Live Testing Tool provided a live environment for performance evaluation and fine-tuning. This chapter shows how these tools work together to make creating a protocol faster and easier.
+
+
+
+\section{Goals and Approach}
+The primary aim of this chapter is to implement a Proof of Authority protocol. We intend to start the development process using the Bootstrapper tool to set up the initial codebase. Following this, we will write tests specifically designed to evaluate the protocol's performance using our Live Testing Tool.
+
+To meet these objectives, we have a multi-faceted approach. First, we aim to demonstrate the efficiency gains by using the Bootstrapper, highlighting the reduced number of steps needed to get the protocol up and running. Second, we plan to show how the Live Testing Tool can be an invaluable asset during the development phase, particularly for debugging and iterative testing. Lastly, we will present example tests that can be run on the new Proof of Authority protocol, showcasing the tool's versatility and utility in a real-world scenario.
+
+\section{Implementing Round-Robin Proof of Authority}
+
+In this chapter, we delve into the implementation of a Proof of Authority (PoA) protocol. Unlike public, permissionless protocols like Proof of Work, PoA is a permissioned protocol. This means that only a select group of nodes, known as authorities or validators, are allowed to create new blocks.
+
+Proof of Authority operates on the principle of reputation and trust. A small number of trusted nodes are given the authority to validate transactions and create new blocks. In our implementation, we replace the concept of mining with a list of these authorities. These validators are responsible for block creation and operate in a round-robin fashion.
+
+The sequence in which these validators create blocks is determined by hashing. Specifically, for each round (or level, for simplicity), we hash the address (or Public Key hash) of each validator concatenated with the current round number. The hash function used is $H(address + round)$. These hashes are then used to sort the order of the validators, to decide the order of validators for the next round.
+
+
+In case a validator fails to create a block, the protocol is designed to move on to the next validator in the sorted list. This process continues until a block is successfully created. This mechanism ensures both fairness and liveness in the protocol. Every node gets an opportunity to create blocks, and the protocol continues to function even if some nodes fail.
+
+\textbf{Notice:} the way we order the validators is somewhat deterministic (unless validators fail). This has real-world implications and isn't necessarily a well designed protocol. 
+To improve on this protocol, some sort of ``randomness'' should be added that is sourced from an outside entity. For example, using previous block information to sort the validators (for example, using the hash of the operations, or timestamp) wouldn't be a good way as the validator creating the block could have influence that information and in some way force the next block validator (to himself). This protocol was implemented just for demonstration purposes.
+
+\section{Methodology}
+
+To kickstart the development of our Proof of Authority protocol, we used the Bootstrapper tool with the command \textit{.\/bootstrapper -name poa -env 6}. This command sets up a new protocol environment, ensuring it's integrated into the Tezos build system. It also creates a folder with pre-made templates for various files, saving us from starting from scratch.
+
+Since the Bootstrapper already provides files for account logic, storage, and monetary representations, our focus was mainly on filling in the protocol-specific logic. We began by defining the block header, which in our case only includes the "validator" and "authority\_list" values, along with the block's signature by the validator.
+
+Next, we utilized the pre-provided storage file to implement the storage, logic, and representation of the validator set. This was followed by the core logic of the protocol, which is executed when a block is either received from the network or built by the node itself. This logic includes:
+
+\begin{itemize}
+    \item Verifying if the validator address in the header is authorized.
+    \item Confirming if the block proposer is the expected one based on our round-robin logic.
+    \item Checking the validity of the block's signature.
+\end{itemize}
+
+When the node receives a block from the network at a level above the expected one, it only verifies if the signature is correct and if the block validator\/proposer is the expected one based on the information on the header.
+
+
+We also implemented the logic for round selection and created an executable for the block creator, similar to the miner executable in the previous example. That is, in order for a node to be a validator one, it must have a baker attached to it, which is just an executable that keeps track of new blocks in the network and upon new blocks it checks if the account address associate to it is of the current proposer.
+
+By following these steps, we were able to implement the protocol with minimal effort, focusing only on the protocol-specific logic. We only had to implement the logic behind the verification of the block header as well as the round-robin  mechanism.
+
+While developing the protocol, we used the Live-testing tool with the following script, to test whether the network was executing and if the protocol works no matter the number of validators:
+
+\begin{listing}[H]
+\caption{Script to live test the Proof of Authority during development}
+\label{lst:python_code}
+\begin{minted}[fontsize=\footnotesize]{python}
+protocol_name = "poa"
+parameters = get_protocol_parameters(protocol_name)
+
+number_of_validators = 5 # This can be changed to account for more/less validators
+
+validators = []
+for _ in range(number_of_validators):
+    account = create_account() # Returns account with address, private and public keys
+    accounts.append({key: account[key] for key in ('address', 'public_key')})
+return accounts
+
+start_test_response = start_test(
+    protocol_name, number_of_validators, 0, parameters)
+
+nodes = get_nodes() 
+
+for i in range(number_of_validators):
+    # Adds public and private key to node and starts baker
+    add_key_and_propose(nodes[i], validators[i])
+\end{minted}
+\end{listing}
+
+
+
+
