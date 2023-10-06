@@ -1,4 +1,4 @@
-\chapter{ Case Study: Implementing PoW and Understanding Protocols in Tezos }
+\chapter{Preliminary Case Study}
 
 The Tezos blockchain has proven itself to be a flexible and adaptable platform, capable of accommodating a wide range of applications and use cases. This makes it a suitable choice for an experiment that aims to test and demonstrate the implementation of a consensus protocol. In this chapter, we will elaborate on why Tezos is an ideal fit for this experiment and explore the inner workings of the platform that make it so.
 
@@ -9,7 +9,7 @@ We will also delve into the implementation of a client and a baker, which are in
 
 In conclusion, this experiment will serve as a demonstration of the flexibility and adaptability of the Tezos blockchain and its ability to accommodate different consensus protocols. The implementation of the Proof of Work consensus protocol will serve as a proof of concept and highlights the potential of the platform to support a wider range of consensus protocols, even those different from the orginal protocol implemented.
 
-\subsection*{\textbf{Tezos Blockchain as a tool for the Experiment}}
+\section{Tezos Blockchain as a tool for the Experiment}
 The choice of Tezos as the blockchain network for this experiment is a deliberate one, as it aligns well with the goals of the solution presented in the previous section.
 
 To understand why Tezos was chosen, it is important to first explain what Tezos is.
@@ -30,7 +30,7 @@ The results of this experiment will provide valuable insights into the potential
 
 
 
-\subsection*{\textbf{How Tezos is structured and How it allows self-amending}}
+\section{How Tezos is structured and How it allows self-amending}
 
 Tezos has a unique structure, which separates the protocol, or how the Tezos project calls it, ``Economic Protocol'' from the rest of the node, known as the shell. The diagram \ref{fig:octupus} illustrates the Tezos architecture, and it's explained in greater detail here \cite{nomadiclabsdocs}.
 The protocol is responsible for interpreting transactions and administrative operations, as well as detecting erroneous blocks, everything else is handled by the shell.
@@ -75,7 +75,7 @@ Secondly, the next block in the blockchain will be the first block using the act
 In conclusion, the structure of Tezos is unique in that it separates the protocol, also known as the ``Economic Protocol'', from the rest of the node, called the shell. The protocol is responsible for interpreting transactions and administrative operations, while the shell includes the validator, peer-to-peer layer, disk storage of blocks, and versioned state of the ledger. The economic protocol on the chain is subject to amendment procedures, allowing for on-chain operations to switch from one protocol to another. The RPC layer allows clients, third-party applications, and daemons to interact with the node and its state. The communication between the shell and the protocol is based on the Updater.PROTOCOL interface, and the protocol is restricted to a specific environment to improve security. A Tezos node can contain multiple economic protocols, but only one of them is activated at any given time through a two-step activation process.
 
 
-\subsection*{\textbf{Implementation of a Protocol}}
+\section{Implementation of a Protocol}
 
 Implementing a Proof of Work consensus algorithm as a protocol for Tezos was motivated by several reasons. Firstly, it was an opportunity for hands-on learning about how protocols are implemented and structured. This understanding is crucial for later work, such as testing and adding an adaptive layer to the DSL mentioned in previous sections. It was necessary to understand how these protocols work before attempting to create tools related to them.
 It also allowed for a deeper understanding of how Tezos works as a whole.
@@ -146,8 +146,8 @@ The encoding and decoding process of this information is done using the ``data-e
 
 The Tezos Protocol is implemented through a series of files that represent various components and functionalities. In this section, we will take a closer look at the information stored and the logic behind each component in the protocol.
 
-The protocol contains representations\/definitions and operations of the following types/\\information, which are stored in files that end with ``repr.ml''. 
-The Tezos documentation calls this the ``representation layer'' of the protocol. Unless the representations are only used within the protocol code, they also implement the encoding and decoding logic so this information can be sent\/received, either from\/to the network or the shell part of the node.
+The protocol contains representations/definitions and operations of the following types/\\information, which are stored in files that end with ``repr.ml''. 
+The Tezos documentation calls this the ``representation layer'' of the protocol. Unless the representations are only used within the protocol code, they also implement the encoding and decoding logic so this information can be sent/received, either from\/to the network or the shell part of the node.
 
 \begin{itemize}
 
@@ -194,7 +194,7 @@ The files that are responsible for storing information have names ending with ``
 
 By storing these types of information in the blockchain, the Tezos Protocol provides a secure and transparent method of tracking the state of the network, which is crucial for the proper functioning of its operations. The protocol also provides a well-defined structure for the information it stores, which ensures consistency and maintainability of the code.
 
-From the Protocol side of view, it sees the Blockchain as a Map\/Tree, where it can fetch and append information to it using the typical concept of a Map (in programming).
+From the Protocol side of view, it sees the Blockchain as a Map/Tree, where it can fetch and append information to it using the typical concept of a Map (in programming).
 
 \subsection*{Implementation of the main entry points to the protocol}
 
@@ -281,7 +281,7 @@ Another missing feature is the lack of upgradability in the protocol. This was i
 
 It should be noted that the absence of these features was not due to technical limitations, but rather a deliberate decision to focus on the implementation of a protocol in the Tezos.
 
-\subsection*{Tools developed to interact with the protocol}
+\section{Tools developed to interact with the protocol}
 
 In this study, tools related to the protocol were also implemented to enable interaction with the network. These tools could be developed independently from the Tezos project, since it's possible to communicate with the tezos node through JSON RPC. However, implementing these tools using OCaml and Tezos modules has the added benefit of being automatically integrated with the Tezos node client (and much more). Upon activation of the protocol, the client would automatically adapt to accommodate it, enabling commands that are specific to the protocol, such as ``Transfer'' and ``Reveal'', which is the case of the protocol covered here.
 

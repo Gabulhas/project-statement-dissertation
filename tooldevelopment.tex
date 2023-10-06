@@ -5,7 +5,7 @@ This chapter focuses on the development of two essential tools designed to strea
 \section{Bootstrapping Tool}
 The Bootstrapper was conceived with the aim of simplifying the development process for creating new protocols in Tezos. Our objective was to minimize the amount of code a developer needs to write to get a protocol up and running. To achieve this, we carefully selected code components that are generic enough to be applicable across multiple protocols. Additionally, we automated certain aspects of the protocol's integration with both Tezos and our Testing tool. In essence, the Bootstrapper serves as a scaffolder or starter pack for protocol development in Tezos.
 
-\subsection{Protocol Generalizations and Common Code}
+\subsection*{Protocol Generalizations and Common Code}
 
 As previously mentioned in the document, there are specific requirements that every protocol must meet to be compatible with Tezos:
 
@@ -70,7 +70,7 @@ Overall, the Live Testing Tool serves as an essential component for both the dev
 
 
 
-\subsection{Functionalities}
+\subsection*{Functionalities}
 The Live Testing Tool operates as a web server, making it language-agnostic for test development. Any programming language capable of making HTTP requests can interact with it. The server exposes a variety of endpoints that facilitate different aspects of testing, such as initiating a protocol test, controlling node operations, and gathering network metrics.
 
 In its architecture, the server acts as a coordinator, maintaining a list of all node endpoints and ensuring seamless interaction among them. This enables the tool to have a centralized point for controlling and monitoring the network.
@@ -131,7 +131,7 @@ To provide real-time metrics and insights, the tool employs a monitoring mechani
 \end{itemize}
 
 
-\subsection{Example Usage}
+\subsection*{Example Usage}
 
 In this section we showcase how this tool can be used from a Python script.
 
@@ -162,7 +162,7 @@ def start_test(protocol_name, nodes, fitness, parameters):
 \begin{minted}[fontsize=\footnotesize]{python}
 # Function that returns the current status of the network
 def get_status():
-    return SESSION.get(ADDRESS + "/status").json()
+    return requests.get(ADDRESS + "/status").json()
 # Function that returns information about all nodes
 def get_nodes():
     return requests.get(ADDRESS + "/nodes").json()

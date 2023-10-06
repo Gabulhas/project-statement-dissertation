@@ -27,7 +27,7 @@ To improve on this protocol, some sort of ``randomness'' should be added that is
 
 \section{Methodology}
 
-To kickstart the development of our Proof of Authority protocol, we used the Bootstrapper tool with the command \textit{.\/bootstrapper -name poa -env 6}. This command sets up a new protocol, ensuring it's integrated into the Tezos build system. It also creates a folder with pre-made templates for various files, saving us from starting from scratch.
+To kickstart the development of our Proof of Authority protocol, we used the Bootstrapper tool with the command \textit{./bootstrapper -name poa -env 6}. This command sets up a new protocol, ensuring it's integrated into the Tezos build system. It also creates a folder with pre-made templates for various files, saving us from starting from scratch.
 
 Since the Bootstrapper already provides files for account logic, storage, and monetary representations, our focus was mainly on filling in the protocol-specific logic. We began by defining the block header, which in our case only includes the "validator" and "authority\_list" values, along with the block's signature by the validator.
 
@@ -39,7 +39,7 @@ Next, we utilized the pre-provided storage file to implement the storage, logic,
     \item Checking the validity of the block's signature.
 \end{itemize}
 
-When the node receives a block from the network at a level above the expected one, it only verifies if the signature is correct and if the block validator\/proposer is the expected one based on the information on the header.
+When the node receives a block from the network at a level above the expected one, it only verifies if the signature is correct and if the block validator/proposer is the expected one based on the information on the header.
 
 
 We also implemented the logic for round selection and created an executable for the block creator, similar to the miner executable in the previous example. That is, in order for a node to be a validator one, it must have a baker attached to it, which is just an executable that keeps track of new blocks in the network and upon new blocks it checks if the account address associate to it is of the current proposer.
@@ -135,9 +135,10 @@ def start_protocol_test(protocol, n_validators, n_nodes, blocks_to_wait, blocks_
 
 
 tests = [
-    {"validators": 20, "nodes": 20, "block_time": 30},
     {"validators": 10, "nodes": 10, "block_time": 30},
-    {"validators": 2, "nodes": 8, "block_time": 120}
+    {"validators": 20, "nodes": 20, "block_time": 30},
+    {"validators": 10, "nodes": 20, "block_time": 20},
+    {"validators": 30, "nodes": 30, "block_time": 20}
 ]
 
 
@@ -152,7 +153,7 @@ for config in tests:
 \end{listing}
 
 
-\subsection{Expectations}
+\section*{Expectations, Results and Observations}
 
 Based on prior knowledge and the inherent characteristics of PoA and PoW, we expect the following outcomes:
 
@@ -163,9 +164,8 @@ Based on prior knowledge and the inherent characteristics of PoA and PoW, we exp
     \item The need for larger block times in PoW is evident, as shorter block times can lead to network instability and increased security risks.
 \end{itemize}
 
-\subsection*{Results}
 
-We present the statistics in the following table:
+We present the resulting statistics in the following table:
 
 \definecolor{Gray}{gray}{0.9}
 \definecolor{LightBlue}{rgb}{0.8, 0.9, 1}
@@ -208,7 +208,6 @@ We present the statistics in the following table:
 \end{table}
 
 
-\subsection*{Observations}
 
 Upon analyzing the results, we find that our expectations hold true:
 

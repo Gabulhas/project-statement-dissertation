@@ -1,6 +1,5 @@
 \chapter{Core Concepts and State of the Art}
 
-\section{Introduction}
 The consensus mechanism is a critical component of any blockchain network. It determines the rules of the system, like validating transactions and adding them to the ledger. In order to understand the current development and innovation in this area, it is important to have a solid understanding of the core concepts of blockchains as well as the current state of the art in consensus algorithms. This chapter aims to provide an overview of both of these key topics.
 
 \section{Core Concepts}
@@ -307,82 +306,28 @@ By doing so, it's infeasible for anyone (without this type of hardware) to join 
 
 This is the case of Monero \cite{getmonero.org}, that besides providing total privacy (the ledger isn't transparent like bitcoin), is also designed to promote equality between miners by using an egalitarian approach based on the use of a different hash function (compared to Bitcoin, that uses SHA256) called ``CryptoNight'', which is said to be memory-hard, making it hard for the development of ASIC hardware and also hard for mining using GPUs. 
 
-\subsection*{\textbf{Proof of Stake}}
-Proof of Stake (PoS) consensus protocols are an alternative to Proof of Work (PoW) consensus protocols in the context of blockchain networks, and lately have been proven to be more popular and where most of the innovation in the space is, since there are environmental concerns surrounding Proof of Work.
+\subsection*{\textbf{Proof of Stake and Its Variants}}
+Proof of Stake (PoS) has emerged as a popular alternative to Proof of Work (PoW). In PoS, nodes are selected to validate transactions and create new blocks based on their stake in the network. The core idea is similar to PoW but replaces "computational power" with "stake," making it more energy-efficient \cite{reference_needed}.
 
-In PoS, nodes in the network compete to validate transactions and create new blocks based on the stake they have locked in the network.
-The idea behind PoS is that the more stake a node has, the greater its chance of being selected to validate transactions and create new blocks. This selection process is done in a decentralized manner and ensures that the network is protected against malicious actors, as the stake acts as a guarantee that the node will behave according to the protocol rules.
+\textbf{Chain-based Proof of Stake (ChainPoS)}: Focuses on incentivizing stakeholders to act honestly by staking assets. It offers two main approaches for block creator selection: randomized stakeholder selection and a hybrid between PoW-like selection and randomized stakeholder selection. Peercoin \cite{peercoin_foundation} and Casper FFG \cite{buterin2017casper} are notable examples.
 
-The core idea behind PoS and PoW is the same, yet "computational power" is replaced by "stake" in PoS. PoS is more energy-efficient than PoW, as it does not require nodes to solve resource-intensive cryptographic puzzles. Additionally, the stake in PoS opens up the possibility for other functionalities, such as delegation and coin slashing, as the stake is explicitly recorded on the blockchain.
+\textbf{BFT Proof of Stake (BFT PoS)}: Developed to tackle Byzantine faults in decentralized systems. It operates in a multi-round consensus process involving validator selection and the use of quorums of super-majority. Tendermint and Tenderbake in the Tezos blockchain are examples \cite{lamport2019byzantine}.
 
-However, PoS also faces challenges. Like PoW, PoS is a closed economic system, meaning that the currency has to be introduced by itself. In order for blocks to be created, there has to be someone staking, but there is no currency yet. This problem is addressed through the concept of bootstrapping, which can be done through pre-mining or transitioning from PoW to PoS.
+\textbf{Delegated Proof of Stake (DPoS)}: Combines elements of PoS and democratic governance. It aims to balance decentralization with efficiency by having a smaller number of delegates. Validators are selected based on reputation scores or other metrics, and stakeholders can vote for delegates.
 
-In the context of PoS consensus protocols, the three most relevant types of Proof of Stake are: ``Chain-based PoS'' , ``BFT PoS'' , and ``Delegated PoS''. As previously discussed in the Core Concepts and State of the Art chapter, each of these types has its own unique characteristics and strengths. For example, ``Chain based'' emphasizes the importance of maintaining a consistent state of the blockchain, while BFT PoS focuses on the efficient and secure execution of consensus in the network. Delegated PoS, on the other hand, allows for network participants to delegate their stake to trusted nodes, making it possible for a smaller subset of nodes to validate transactions and create blocks.
+In conclusion, PoS and its variants offer a range of options that balance security, scalability, and efficiency, each with its own set of trade-offs and benefits.
 
-These will be explained in the following subsections.
+\subsection*{\textbf{Proof of Authority and Its Variants}}
+Proof of Authority (PoA) is a consensus algorithm commonly used in permissioned blockchain networks, where decentralization is not the primary concern. In PoA, a limited set of pre-approved validators are responsible for block creation and transaction validation. This approach offers a high degree of efficiency and scalability while eliminating the need for resource-intensive calculations. Interestingly, our implementation of PoA has certain similarities with PoW, a topic that will be explored further in this dissertation.
 
-\subsection*{\textbf{Chain-based Proof of Stake}}
-Chain-Based Proof of Stake (ChainPoS) is a consensus algorithm that builds upon the concept of staking and the idea of block creation through the participation of stakeholders. It aims to be a more energy efficient alternative to Proof of Work (PoW) consensus, while still maintaining a level of security and decentralization.
+\textbf{Clique PoA}: This variant aims to improve the decentralization aspect of PoA by allowing multiple authorities to propose blocks in a round-robin manner. This reduces the risk of a single point of failure and enhances network security \cite{szilagyi2017clique}.
 
-Chain PoS operates on the idea of incentivizing stakeholders to act honestly by staking their assets. This creates a guarantee that stakeholders will behave in accordance with the protocol rules, as any malicious behavior would result in the loss of the staked assets (slashing). The bigger the stake locked, the bigger the chance of being selected as the next block creator in a decentralized manner.
-Staking is also a guarantee that the node won't behave maliciously, as if, in case it does so, the state of the network might be damaged and so it also damages the value of the stake itself.
+\textbf{Aura PoA}: Known for its flexibility, it allows validators to take turns in a defined order to create blocks. It also includes a mechanism for validators to communicate and come to a consensus if a block is valid or not \cite{aura_poa}.
 
-There are two main approaches for block creator selection in Chain PoS, randomized stakeholder selection, and a hybrid between PoW-like selection and randomized stakeholder selection. In randomized stakeholder selection, the node executes a random algorithm to determine whether they are selected as the leader, taking into account the staked currency and other parameters. The hybrid approach, seen in Peercoin, combines PoW and PoS block creation.
+\textbf{IBFT PoA (Istanbul BFT)}: A Byzantine-fault-tolerant PoA algorithm that can handle malicious nodes and network splits. It uses a voting mechanism among validators to reach consensus and is known for its robustness \cite{moniz2020istanbul}.
 
-Coin age is a critical concept in PoS block generation. It refers to the amount of time that a stake has been locked and is used as the core of PoS block generation. The longer the stake has been locked, the more valuable it becomes, leading to a higher chance of being selected as the next block creator.
+In conclusion, PoA serves as an effective choice for networks where rapid transaction validation is crucial, and where a permissioned structure is acceptable. Its variants offer different ways to balance efficiency with security, making PoA adaptable to various specific needs.
 
-Peercoin \cite{peercoin_foundation} was the first to successfully implement PoS and represents a milestone in its development. Its hybrid consensus of PoW and PoS, and its use of coin age as the core of PoS block generation, set it apart from other PoS-based protocols. The stake in Peercoin is represented by coin age consumption, and block generation priority is determined by the amount of coin age consumed. The most-staked chain is used to determine the authoritative chain, providing double-spending attack protection through the consumption of an adversary's coin age.
-
-However, there are limitations to PoS-based protocols, including the need for additional security assumptions. PoSAT is a proposal for improving the security of PoS-based protocols by using Verifiable Delay Function to avoid these assumptions. Dynamic availability is also a critical aspect in blockchain systems, and PoSAT plays a role in achieving it.
-
-Another example of a Chain PoS protocol is Casper FFG \cite{buterin2017casper}, which was designed by Ether\-eum's co-creator, Vitalik Buterin. It aims to provide a more energy efficient alternative to PoW while still maintaining the security of the network.
-
-In conclusion, Chain Proof of Stake is a promising alternative to Proof of Work consensus, offering energy efficiency and the potential for additional functionalities built around the stake. However, there are still challenges to be addressed, such as the need for additional security assumptions and the importance of dynamic availability in blockchain systems.
-
-
-\subsection*{\textbf{BFT Proof of Stake}}
-
-BFT (Byzantine Fault Tolerant) Proof of Stake is a consensus algorithm that ensures the security and reliability of the blockchain network. This consensus mechanism has been developed to tackle the issue of Byzantine faults in decentralized systems, which is the idea that one or more nodes in a network may act maliciously, causing the network to behave in unpredictable and undesirable ways. The BFT PoS algorithm offers a solution to this problem by introducing a multi-round consensus process that involves validator selection and the use of quorums of super-majority to tolerate Byzantine behavior.
-
-The BFT PoS algorithm is a Byzantine Fault Tolerant consensus protocol that operates in a partially synchronous network. It is designed to ensure the security and reliability of the blockchain network by making use of cryptographic sampling algorithms for validator selection, validator voting and block confirmation processes, and record-keeping of validator votes and calculation of block probability. The algorithm uses a personalized security threshold for each node in the consensus algorithm to achieve consensus in the network.
-
-Byzantine Fault Tolerance \cite{lamport2019byzantine} refers to the ability of a decentralized system to maintain its functionality even when one or more nodes in the network act maliciously. This is a critical requirement for blockchain networks, where the risk of Byzantine faults increases with the size and complexity of the network.
-
-The BFT PoS algorithm operates in a multi-round consensus process, where the validators participate in multiple rounds of voting to reach consensus on the state of the blockchain. The consensus process consists of several steps, including proposal, pre-vote, and pre-commit, which are executed in a deterministic order to ensure that the network reaches consensus.
-
-Validator selection is an important aspect of the BFT PoS algorithm, as it determines the set of validators that will participate in the consensus process. This is done through a cryptographic sampling algorithm, which takes into account the validators' security deposits and other parameters to select a quorum of validators for each round of consensus.
-
-The BFT PoS algorithm requires a quorum of super-majority, which means that a certain percentage of the validators must reach consensus on the state of the blockchain before it can be considered final. This helps to ensure that the network is robust against Byzantine faults, as a malicious node would need to compromise a large percentage of the network to compromise the consensus process.
-
-This algorithm is designed to tolerate Byzantine behavior, meaning that it can continue to function even if one or more nodes in the network act maliciously. This is achieved through the use of quorums of super-majority and personalized security thresholds, which help to prevent a malicious node from compromising the consensus process.
-
-In the event of a network partition, the BFT PoS algorithm must choose between consistency and availability, as both cannot be achieved simultaneously. The algorithm prioritizes consistency, meaning that the network will remain in a consistent state even if it is unavailable for a period of time. This helps to ensure the security and reliability of the blockchain network.
-
-It is executed in a partially synchronous network, where the network can operate at different speeds for different nodes. This is a more realistic model for decentralized systems, as it allows for the possibility of network delays and variable network speeds. 
-
-BFT Proof of Stake consensus protocols have become increasingly popular in recent years due to their combination of security and efficiency. In a BFT PoS system, validators are selected through a cryptographic sampling algorithm and play a crucial role in the consensus process. The validators vote on each block and reach a consensus through a multi-round process. To ensure a high level of security, the system is designed to tolerate byzantine behavior and a quorum of super-majority is required for block confirmation. The consensus algorithm also balances consistency and availability in case of network partitions.
-
-Tendermint is a popular implementation of BFT PoS that has been widely adopted in the Cosmos ecosystem of blockchains. Besides being a protocol itself, it can act as a consensus plugin that can be integrated with other blockchain systems.
-Tendermint is a committee and round-based consensus algorithm. It determines the validator from a validator set(committee) with the most voting power to be the proposer in each round. The consensus process involves three steps: propose, pre-vote, and pre-commit. To ensure the safety of the system, nodes must bond a security deposit and the protocol requires 100\% uptime of the super-majority of validators.
-
-Tenderbake is a consensus protocol based on the Tendermint consensus engine and integrated into the Tezos blockchain, this blockchain being a focus in later sections of this document.
-
-In conclusion, BFT Proof of Stake consensus protocols provide a secure and efficient alternative to traditional proof of work algorithms. With the introduction of Tendermint and other implementations, BFT PoS has become a key component in the development of blockchain technology and its integration into various industries.
-
-\subsection*{\textbf{Delegated Proof of Stake}}
-
-Delegated Proof of Stake (DPoS) is a consensus algorithm that combines elements of both PoS and democratic governance. In DPoS, the network's stakeholders vote for a set of delegates, who are responsible for maintaining the network's consensus and proposing new blocks. These delegates, or validators, are selected based on various mechanisms such as reputation scores or other metrics that reflect the trustworthiness of the node.
-
-DPoS is distinct from other PoS algorithms in that it aims to balance the need for decentralization with the need for efficiency and speed. By having a smaller number of delegates (making it less decentralized), DPoS reduces the amount of computational resources required to maintain network consensus, thereby improving network scalability. This also allows for faster transaction processing times and more efficient consensus compared to traditional PoS algorithms.
-It can be said that even though that this type of protocol is less decentralized, it compensates with the fact that entities can also stake on a validator. So, even though that the validator set might be small, entities can increase the trust of the system by giving part of their currency to validators, as in a way of demonstrating trust on them.
-
-Validators/Delegates have a key role in the DPoS algorithm, as they are responsible for proposing new blocks and maintaining the network's consensus. The leader of the network, or the delegate with the most votes, is selected to be the block proposer for a given round. The leader is incentivized to behave honestly through rewards and penalties, which can be implemented via the application layer. Additionally, there is competition among delegates to earn the most votes, which motivates them to provide better services to the network's stakeholders.
-
-Incentives for voters are also important in DPoS. The network's stakeholders have a direct say in the selection of delegates and have the ability to vote for delegates who align with their interests. Incentives for voters can come in the form of rewards for participating in the voting process or penalties for not doing so.
-
-DPoS can be integrated with other PoS algorithms to enhance the security and efficiency of the network. For example, it can be used as a consensus mechanism in combination with a BFT PoS algorithm to provide a more robust network that is resistant to both Byzantine faults and network partitioning.
-
-In conclusion, the Delegated Proof of Stake algorithm provides a unique balance between decentralization, scalability, and efficiency. Its combination of democratic governance and PoS consensus makes it a versatile algorithm that can be integrated with other PoS algorithms to enhance the security and performance of the network.
 
 \subsection*{\textbf{Other Consensus Protocols}}
 
