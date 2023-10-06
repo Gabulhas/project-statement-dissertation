@@ -80,11 +80,11 @@
 
 
 %%Agradecimentos 
-%\newpage 	
+\newpage 	
 %\section*{\titulos{Agradecimentos}}
-%\vspace{0.5cm}
-%Agradecer a quem de direito (opcional)
-%\cleardoublepage
+\vspace{0.5cm}
+\include{acknowledgments}
+\cleardoublepage
 
 
 %%Prefácio 
@@ -97,9 +97,17 @@
 
 %%Resumo+palavras-chave
 %\newpage 	
-%\section*{\titulos{Resumo}}
-%\vspace{0.5cm}
-%Resumo do trabalho
+\vspace{0.5cm}
+\include{resumo}
+\cleardoublepage
+
+\vspace{0.5cm}
+\include{abstract}
+\cleardoublepage
+
+\vspace{0.5cm}
+\include{resumo_alargado}
+\cleardoublepage
  
 %\vspace{2.2cm}
 %{\titulos{Palavras-chave}}
@@ -173,6 +181,7 @@
 \mainmatter
 
 \include{Intro}
+
 \include{stateofart}
 \include{casestudy}
 \include{tooldevelopment}
@@ -190,7 +199,7 @@
 %% Inicio Bibliografia
 \cleardoublepage
 \phantomsection
-\addcontentsline{toc}{chapter}{Bibliografy}
+\addcontentsline{toc}{chapter}{Bibliography}
 %%%%%%%%%%%%%%%%
 % Escolher entre as duas opcções
 %

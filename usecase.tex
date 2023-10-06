@@ -9,21 +9,28 @@ To achieve this, we chose to implement a Proof of Authority protocol. While this
 \section{Goals and Approach}
 The primary aim of this chapter is to implement a Proof of Authority protocol. We intend to start the development process using the Bootstrapper tool to set up the initial codebase. Following this, we will write tests specifically designed to evaluate the protocol's performance using our Live Testing Tool.
 
-To meet these objectives, we have a multi-faceted approach. First, we aim to demonstrate the efficiency gains by using the Bootstrapper, highlighting the reduced number of steps needed to get the protocol up and running. Second, we plan to show how the Live Testing Tool can be an invaluable asset during the development phase, particularly for debugging and iterative testing. Lastly, we will present example tests that can be run on the new Proof of Authority protocol, showcasing the tool's versatility and utility in a real-world scenario.
+To meet these objectives, we have a multi-faceted approach. First, we aim to demonstrate the efficiency gains by using the Bootstrapper, highlighting the reduced number of steps needed to get the protocol up and running. Second, we plan to show how the Live Testing Tool can be an invaluable asset during the development phase, particularly for debugging and iterative testing.
+
+Lastly, we will present example tests that can be run on the new Proof of Authority protocol, showcasing the tool's versatility and utility in a real-world scenario.
 
 \section{Boostrapping and Implementing Proof of Authority}
 
-In this chapter, we delve into the implementation of a Proof of Authority (PoA) protocol. Unlike public, permissionless protocols like Proof of Work, PoA is a permissioned protocol. This means that only a select group of nodes, known as authorities or validators, are allowed to create new blocks.
+In this chapter, we delve into the implementation of a Proof of Authority (PoA) protocol. Unlike public, permissionless protocols like Proof of Work, PoA is a permissioned protocol. 
+
+This means that only a select group of nodes, known as authorities or validators, are allowed to create new blocks.
+
+Also, unlike networks using Proof of Work are considered a Synchronous network, our Proof of Authority is Partially-synchronous, as there's an upper bound in our implementation, that is, nodes have a block time plus a tolerance to successfully create and spread a block.
 
 Proof of Authority operates on the principle of reputation and trust. A small number of trusted nodes are given the authority to validate transactions and create new blocks. In our implementation, we replace the concept of mining with a list of these authorities. These validators are responsible for block creation and operate in a round-robin fashion.
 
 The sequence in which these validators create blocks is determined by hashing. Specifically, for each round (or level, for simplicity), we hash the address (or Public Key hash) of each validator concatenated with the current round number. The hash function used is $H(address + round)$. These hashes are then used to sort the order of the validators, to decide the order of validators for the next round.
 
-
 In case a validator fails to create a block, the protocol is designed to move on to the next validator in the sorted list. This process continues until a block is successfully created. This mechanism ensures both fairness and liveness in the protocol. Every node gets an opportunity to create blocks, and the protocol continues to function even if some nodes fail.
 
 \textbf{Notice:} the way we order the validators is somewhat deterministic (unless validators fail). This has real-world implications and isn't necessarily a well designed protocol. 
-To improve on this protocol, some sort of ``randomness'' should be added that is sourced from an outside entity. For example, using previous block information to sort the validators (for example, using the hash of the operations, or timestamp) wouldn't be a good way as the validator creating the block could have influence that information and in some way force the next block validator (to himself). This protocol was implemented just for demonstration purposes.
+To improve on this protocol, some sort of ``randomness'' should be added that is sourced from an outside entity.
+
+For example, using previous block information to sort the validators (for example, using the hash of the operations, or timestamp) wouldn't be a good way as the validator creating the block could have influence that information and in some way force the next block validator (to himself). This protocol was implemented just for demonstration purposes.
 
 \section{Methodology}
 
@@ -76,9 +83,14 @@ for i in range(number_of_validators):
 
 
 
-In summary, the Bootstrapper and Live Testing Tool significantly streamlined the development process of our Proof of Authority protocol. The Bootstrapper's template provided a strong foundation, allowing us to focus solely on the protocol-specific logic. This was evident in the number of lines of code written; out of the 6166 lines in the complete protocol, only 1700 were written by us. That's just 27% of the total codebase, emphasizing how much of the groundwork was already laid out.
+In summary, the Bootstrapper and Live Testing Tool significantly streamlined the development process of our Proof of Authority protocol. The Bootstrapper's template provided a strong foundation, allowing us to focus solely on the protocol-specific logic. This was evident in the number of lines of code written; out of the 6166 lines in the complete protocol, only 1700 were written by us. That's just 27\% of the total codebase, emphasizing how much of the groundwork was already laid out. 
 
-This not only reduced the coding effort but also lowered the barrier to entry, as we didn't have to delve deep into the intricacies of protocol development. The Live Testing Tool further aided in debugging and validation, making the entire development cycle more efficient. Therefore, these tools prove to be invaluable assets for anyone looking to develop and test blockchain protocols with ease and efficiency.
+This not only reduced the coding effort but also lowered the barrier to entry, as we didn't have to delve deep into the intricacies of protocol development. 
+Even though we had previous knowledge of how we could implement a protocol, we took less than one day to have a fully function PoA, where as when implementing PoW it took us more than a week.
+The Live Testing Tool further aided in debugging and validation, making the entire development cycle more efficient.
+Therefore, these tools prove to be invaluable assets for anyone looking to develop and test blockchain protocols with ease and efficiency.
+Before the creation of the Testing tool, either rudimentary bash scripts where used or manually starting the network was often performed, and we were able to write this script before even starting the implementation of the protocol.
+
 
 
 
@@ -88,6 +100,7 @@ In this section, we aim to compare the key metrics of Proof of Authority (PoA) a
 
 To carry out this comparison, we used a script that simulates various network conditions for both PoA and PoW. This script is designed to measure the Time-to-Consensus under different configurations of block time and validator set size.
 
+The script automates Time-to-Consensus (TTC) tests for different consensus protocols and network configurations. It initializes a test network, starts the baker nodes, fetches the TTC from the Live Testing Tool, and then shuts down the network. Multiple test scenarios are defined with varying numbers of nodes and validators, and the script iterates through these to gather TTC data.
 
 \begin{listing}[H]
 \caption{Script to execute the tests for Time-to-Consensus}
@@ -209,14 +222,17 @@ We present the resulting statistics in the following table:
 
 
 
-Upon analyzing the results, we find that our expectations hold true:
+Upon a detailed examination of the results, several key insights emerge that corroborate our initial expectations:
 
 \begin{itemize}
-    \item PoA maintains a consistent average Time-to-Consensus (of about 14 seconds) across different configurations.
-    \item PoW's Time-to-Consensus increases with the number of validators and decreases with larger block times, confirming its sensitivity to these parameters.
+    \item PoA exhibits a stable average Time-to-Consensus (approximately 14 seconds) across various configurations. This consistency is attributed to its sequential block creation mechanism, where only one block proposer is active at a given time. This eliminates the possibility of multiple forks and ensures a quicker and more reliable consensus. 
+    
+    \item In contrast, PoW's Time-to-Consensus is highly sensitive to the number of validators and block times. This is due to its concurrent block creation approach, where multiple miners can create blocks simultaneously. This leads to the formation of multiple forks in the chain and network, necessitating a longer block time to resolve these forks and reach a stable consensus.
 \end{itemize}
 
-These observations validate the efficiency of PoA in achieving quicker consensus and highlight the limitations of PoW, especially in networks with smaller block times and larger validator sets.
+These findings underscore the efficiency of PoA in achieving rapid consensus, while also highlighting the limitations of PoW, particularly in scenarios with shorter block times and larger sets of validators.
+
+It's worth noting that although not covered in this document, a specialized test suite for Proof of Work could be developed to ascertain the optimal block time that minimizes the occurrence of forks while maintaining efficient block creation.
 
 
 \section{Conclusion}

@@ -1,5 +1,5 @@
 \chapter{Tool Development}
-This chapter focuses on the development of two essential tools designed to streamline the process of creating and evaluating blockchain protocols, particularly on the Tezos platform. The first tool, known as the Bootstrapper, automates the initial setup and coding tasks, providing a quick start for developers. The second tool, the Live Testing Tool, offers a real-world testing environment equipped with a variety of features for performance metrics and network control. Together, these tools aim to address the complexities and challenges inherent in blockchain protocol development, offering a more accessible and efficient pathway for both novice and experienced developers.
+This chapter focuses on the development of two essential tools designed to streamline the process of creating and evaluating blockchain protocols, particularly on the Tezos platform. The first tool, known as the \textbf{Bootstrapper}, automates the initial setup and coding tasks, providing a quick start for developers. The second tool, the \textbf{ Live Testing Tool}, offers a real-world testing environment equipped with a variety of features for performance metrics and network control. Together, these tools aim to address the complexities and challenges inherent in blockchain protocol development, offering a more accessible and efficient pathway for both novice and experienced developers.
 
 
 \section{Bootstrapping Tool}
@@ -43,10 +43,15 @@ Given these commonalities, our tool serves as a starter kit, providing the essen
 The Bootstrapper is a command-line program designed to streamline the initial setup of a new protocol in Tezos.
 It functions as an "Init Protocol" command, performing the following tasks of \textbf{folder creation}, where it automatically sets up the necessary folders, \textbf{template copy}, as it copies a predefined template (created by us) into the new folder, but are left in the folder so the developer can change it for their needs, \textbf{text replacement and integration}, as it replaces specific text in the template and ensures integration with Tezos' Dune build system and other required code components, and finally it \textbf{includes a pre built script} to build the protocol, so there's no need for the developer to learn how this process is done.
 
-To further ease development and reduce boilerplate code, we enhanced a pre-existing meta-programming library, \textit{ppx\_deriving\_encoding} ADICIONAR REFERENCIA. 
+To further ease development and reduce boilerplate code, we enhanced a pre-existing meta-programming library, \textit{ppx\_deriving\_encoding} \cite{ppx_deriving_encoding}. 
+
 This library allows developers to automate the definition of encoding functions, by appending a meta-programming tag \textit{[@@deriving encoding]} to a type, the encoding function for that type is automatically generated, and this is particularly useful for type representations, as a big part of the code in protocols are these functions.
 We also include a block header functor, that auto-generates the entire block\_header file functionality by merely providing a type.
 This not only reduces the code volume by threefold (as experienced while improving the previously mentioned Proof of Work) but also alleviates the developer's need to delve into the intricacies of the Data-encoding library.
+
+
+
+
 
 For the user, this is abstracted with the following command
 
@@ -70,7 +75,7 @@ Overall, the Live Testing Tool serves as an essential component for both the dev
 
 
 
-\subsection*{Functionalities}
+\subsection*{\textbf{Functionalities}}
 The Live Testing Tool operates as a web server, making it language-agnostic for test development. Any programming language capable of making HTTP requests can interact with it. The server exposes a variety of endpoints that facilitate different aspects of testing, such as initiating a protocol test, controlling node operations, and gathering network metrics.
 
 In its architecture, the server acts as a coordinator, maintaining a list of all node endpoints and ensuring seamless interaction among them. This enables the tool to have a centralized point for controlling and monitoring the network.
@@ -133,7 +138,7 @@ To provide real-time metrics and insights, the tool employs a monitoring mechani
 
 \subsection*{Example Usage}
 
-In this section we showcase how this tool can be used from a Python script.
+In this section we showcase how this tool can be used from a Python script, yet this system isn't specifc to this language, so other languages like OCaml, Go could be used aswell.
 
 \begin{listing}[H]
 \caption{Example function that starts a test}

@@ -1,13 +1,12 @@
 \chapter{Preliminary Case Study}
 
-The Tezos blockchain has proven itself to be a flexible and adaptable platform, capable of accommodating a wide range of applications and use cases. This makes it a suitable choice for an experiment that aims to test and demonstrate the implementation of a consensus protocol. In this chapter, we will elaborate on why Tezos is an ideal fit for this experiment and explore the inner workings of the platform that make it so.
+In this chapter, we focus on a hands-on experiment conducted on the Tezos blockchain. We chose Tezos for its inherent flexibility and adaptability, qualities that make it an ideal testbed for exploring the implementation of various consensus protocols. The primary aim of this experiment is twofold: to gain a deeper understanding of how consensus protocols can be generalized and tested, and to delve into the specifics of Tezos' architecture and how it accommodates different protocols.
 
-The experiment at hand involves the implementation of a Proof of Work consensus protocol, similar to the one used by the Bitcoin blockchain.
-As an exercise, this protocol was implemented on the Tezos blockchain and its workings will be discussed in detail. This will include a discussion of the requirements for a protocol, its integration with the Tezos node, the implementation of the protocol itself and the tools used to interact with it.
+Our experiment involves implementing a Proof of Work consensus protocol, similar to Bitcoin's. This serves as a learning exercise that allows us to understand the nuances of integrating a new consensus protocol into an existing blockchain like Tezos. We will discuss the requirements for this protocol, its integration process, and the tools we used for interaction.
 
-We will also delve into the implementation of a client and a baker, which are integral components of the protocol. The client is used to access information within the network, while the baker is responsible for the creation and mining of blocks. This includes the process of mining the block by finding the nonce that makes the block's hash lower than the target, which is a key point in the execution of a Nakamoto like consensus.
+Other components of the protocol, such as the client and the baker, will also be covered. The client serves as the gateway for network information, while the baker takes on the role of block creation and mining. We'll go into detail about the mining process, particularly the mechanism of finding the nonce that satisfies the block's hash conditions.
 
-In conclusion, this experiment will serve as a demonstration of the flexibility and adaptability of the Tezos blockchain and its ability to accommodate different consensus protocols. The implementation of the Proof of Work consensus protocol will serve as a proof of concept and highlights the potential of the platform to support a wider range of consensus protocols, even those different from the orginal protocol implemented.
+In summary, this chapter aims to demonstrate Tezos' capability to serve as a versatile platform for implementing and testing different consensus protocols. Our implementation of the Proof of Work protocol will not only serve as a proof of concept but also highlight Tezos' potential to support a broader range of consensus algorithms.
 
 \section{Tezos Blockchain as a tool for the Experiment}
 The choice of Tezos as the blockchain network for this experiment is a deliberate one, as it aligns well with the goals of the solution presented in the previous section.
@@ -292,5 +291,9 @@ The baker performs the task of baking (how block creation is called in Tezos), o
 
 \section{Conclusion}
 
-MUDAR:
-In conclusion, this experiment proved to be a valuable exercise as it allowed us to gain a deeper understanding of how consensus protocols work and how they can be implemented within a blockchain network. The implementation of the protocol allowed us to test its capabilities, limitations and to identify areas for improvement. Furthermore, it demonstrated the versatility and flexibility of the Tezos network in accommodating custom consensus protocols, making it an ideal platform for experimentation and innovation.
+In summary, our experiment using the Tezos blockchain has been enlightening in multiple dimensions. We chose Tezos for its inherent flexibility and adaptability, qualities that have been validated through the successful implementation of a Proof of Work consensus protocol. This experiment was not just an exercise in protocol implementation; it served as a foundational study to understand the generalizability and testability of consensus protocols on the Tezos platform. 
+
+We delved into the intricacies of protocol requirements, integration with the Tezos node, and the roles of key components like the client and baker. The insights gained from implementing and testing this protocol have been invaluable. They have not only demonstrated Tezos' capability to accommodate diverse consensus protocols but also provided us with the knowledge required to generalize and test these protocols effectively.
+
+As we transition into the next chapter on Tool Development, the lessons learned here will be instrumental. The experiment has laid down the groundwork for developing tools that can further simplify the process of swapping, testing, and comparing consensus protocols on blockchain platforms like Tezos. 
+
