@@ -11,7 +11,7 @@ The primary aim of this chapter is to implement a Proof of Authority protocol. W
 
 To meet these objectives, we have a multi-faceted approach. First, we aim to demonstrate the efficiency gains by using the Bootstrapper, highlighting the reduced number of steps needed to get the protocol up and running. Second, we plan to show how the Live Testing Tool can be an invaluable asset during the development phase, particularly for debugging and iterative testing. Lastly, we will present example tests that can be run on the new Proof of Authority protocol, showcasing the tool's versatility and utility in a real-world scenario.
 
-\section{Implementing Round-Robin Proof of Authority}
+\section{Boostrapping and Implementing Proof of Authority}
 
 In this chapter, we delve into the implementation of a Proof of Authority (PoA) protocol. Unlike public, permissionless protocols like Proof of Work, PoA is a permissioned protocol. This means that only a select group of nodes, known as authorities or validators, are allowed to create new blocks.
 
@@ -27,7 +27,7 @@ To improve on this protocol, some sort of ``randomness'' should be added that is
 
 \section{Methodology}
 
-To kickstart the development of our Proof of Authority protocol, we used the Bootstrapper tool with the command \textit{.\/bootstrapper -name poa -env 6}. This command sets up a new protocol environment, ensuring it's integrated into the Tezos build system. It also creates a folder with pre-made templates for various files, saving us from starting from scratch.
+To kickstart the development of our Proof of Authority protocol, we used the Bootstrapper tool with the command \textit{.\/bootstrapper -name poa -env 6}. This command sets up a new protocol, ensuring it's integrated into the Tezos build system. It also creates a folder with pre-made templates for various files, saving us from starting from scratch.
 
 Since the Bootstrapper already provides files for account logic, storage, and monetary representations, our focus was mainly on filling in the protocol-specific logic. We began by defining the block header, which in our case only includes the "validator" and "authority\_list" values, along with the block's signature by the validator.
 
@@ -76,4 +76,159 @@ for i in range(number_of_validators):
 
 
 
+In summary, the Bootstrapper and Live Testing Tool significantly streamlined the development process of our Proof of Authority protocol. The Bootstrapper's template provided a strong foundation, allowing us to focus solely on the protocol-specific logic. This was evident in the number of lines of code written; out of the 6166 lines in the complete protocol, only 1700 were written by us. That's just 27% of the total codebase, emphasizing how much of the groundwork was already laid out.
+
+This not only reduced the coding effort but also lowered the barrier to entry, as we didn't have to delve deep into the intricacies of protocol development. The Live Testing Tool further aided in debugging and validation, making the entire development cycle more efficient. Therefore, these tools prove to be invaluable assets for anyone looking to develop and test blockchain protocols with ease and efficiency.
+
+
+
+\section{Evaluation and Insights: PoA vs PoW}
+
+In this section, we aim to compare the key metrics of Proof of Authority (PoA) and Proof of Work (PoW) protocols. Specifically, we focus on the metric of Time-to-Consensus, which measures the time taken for a newly created block to be accepted by a majority of nodes or validators in the network. This comparison serves as a practical use-case for our developed tools and provides insights into the efficiency of different consensus algorithms.
+
+To carry out this comparison, we used a script that simulates various network conditions for both PoA and PoW. This script is designed to measure the Time-to-Consensus under different configurations of block time and validator set size.
+
+
+\begin{listing}[H]
+\caption{Script to execute the tests for Time-to-Consensus}
+\label{lst:python_code}
+\begin{minted}[fontsize=\footnotesize]{python}
+def start_protocol_test(protocol, n_validators, n_nodes, blocks_to_wait, blocks_to_run, block_time):
+
+    print(f"Starting {pretty_name} test")
+    parameters = get_protocol_parameters(protocol)
+    parameters["constants"]["block_time"] = str(block_time)
+    baker_name = "./octez-baker-custom-"
+    accounts = create_multiple_accounts(n_validators)
+    reveal_accounts = False
+
+    if protocol == "poa":
+        parameters["constants"]["initial_validator_set"] = [
+            {key: account[key] for key in ('address', 'public_key')}
+            for account in accounts
+        ]
+        baker_name = baker_name + "poa"
+    else:
+        reveal_accounts = True
+        baker_name = baker_name + "demo"
+
+    print("Starting the network")
+    start_test(protocol, n_nodes, 0, parameters)
+    wait_until_status("running")
+
+    nodes = get_nodes()
+
+    print("Starting the baker")
+    processes = start_bakers(protocol, baker_name, accounts, nodes)
+
+    print("Running the test....")
+    wait_for_blocks(nodes[0]['rpc'], blocks_to_run)
+    ttc = fetch_time_to_consensus()
+    print(f"Final TTC: {ttc}")
+
+    print("Stopping the test....")
+    stop_test()
+    wait_until_status("stopped")
+    stop_bakers(processes)
+
+    print(f"{pretty_name} test complete.")
+
+
+tests = [
+    {"validators": 20, "nodes": 20, "block_time": 30},
+    {"validators": 10, "nodes": 10, "block_time": 30},
+    {"validators": 2, "nodes": 8, "block_time": 120}
+]
+
+
+blocks_to_wait = 5
+blocks_to_run_for = 25
+
+for config in tests:
+    for protocol in ["poa", "demo"]:
+        start_protocol_test(protocol, config["validators"],
+                            config["nodes"], blocks_to_wait, blocks_to_run_for, config["block_time"])
+\end{minted}
+\end{listing}
+
+
+\subsection{Expectations}
+
+Based on prior knowledge and the inherent characteristics of PoA and PoW, we expect the following outcomes:
+
+\begin{itemize}
+    \item PoA should exhibit a more consistent average Time-to-Consensus, irrespective of the block time and the size of the validator set.
+    \item In PoW, the Time-to-Consensus is likely to increase with the number of validators, as a larger majority is needed to resolve forks and discard invalid blocks.
+    \item Smaller block times in PoW are expected to result in longer Time-to-Consensus due to increased frequency of forks.
+    \item The need for larger block times in PoW is evident, as shorter block times can lead to network instability and increased security risks.
+\end{itemize}
+
+\subsection*{Results}
+
+We present the statistics in the following table:
+
+\definecolor{Gray}{gray}{0.9}
+\definecolor{LightBlue}{rgb}{0.8, 0.9, 1}
+\definecolor{LightRed}{rgb}{1, 0.8, 0.9}
+\definecolor{LightYellow}{rgb}{0.0, 0.5, 0.5}
+
+\begin{table}[h]
+\centering
+\caption{Time-to-Consensus Comparison between PoW and PoA}
+\label{table:time-to-consensus}
+\begin{tabular}{|c|c|c||c|c|c|}
+\hline
+\multicolumn{3}{|c||}{\textbf{Parameters}} & \multicolumn{3}{c|}{\textbf{Metrics (Time-to-Consensus)}} \\
+\hline
+\textbf{Validators} & \textbf{Nodes} & \textbf{Block Time} & \textbf{Max} & \textbf{Min} & \textbf{Average} \\
+\hline
+\multicolumn{6}{|c|}{\textbf{Proof of Work}} \\
+\hline
+\rowcolor{Gray}
+10 & 10 & 30 & 117 & 10 & 50.959 \\
+\rowcolor{LightBlue}
+20 & 20 & 30 & 143 & 9 & 70.312 \\
+\rowcolor{LightYellow}
+10 & 20 & 20 & 143 & 10 & 65.229 \\
+\rowcolor{LightRed}
+30 & 30 & 20 & 191 & 20 & 72.332 \\
+\hline
+\multicolumn{6}{|c|}{\textbf{Proof of Authority}} \\
+\hline
+\rowcolor{Gray}
+10 & 10 & 30 & 35 & 2 & 13.827 \\
+\rowcolor{LightBlue}
+20 & 20 & 30 & 38 & 1 & 14.233 \\
+\rowcolor{LightYellow}
+10 & 20 & 20 & 30 & 4 & 14.101 \\
+\rowcolor{LightRed}
+30 & 30 & 20 & 42 & 2 & 13.994 \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\subsection*{Observations}
+
+Upon analyzing the results, we find that our expectations hold true:
+
+\begin{itemize}
+    \item PoA maintains a consistent average Time-to-Consensus (of about 14 seconds) across different configurations.
+    \item PoW's Time-to-Consensus increases with the number of validators and decreases with larger block times, confirming its sensitivity to these parameters.
+\end{itemize}
+
+These observations validate the efficiency of PoA in achieving quicker consensus and highlight the limitations of PoW, especially in networks with smaller block times and larger validator sets.
+
+
+\section{Conclusion}
+
+In this chapter, we've demonstrated the power and utility of our developed tools—Bootstrapper and Live Testing Tool—in a real-world scenario. Through the lens of implementing and comparing two distinct consensus algorithms, Proof of Authority and Proof of Work, we've showcased how these tools can significantly streamline the protocol development and testing process.
+
+The Bootstrapper tool allowed us to implement a fully functional PoA protocol with minimal effort, requiring us to write only 27\% of the total lines of code. This not only reduces the development time but also lowers the entry barrier for newcomers in the field of blockchain protocol development.
+
+Our Live Testing Tool provided invaluable insights into key metrics like Time-to-Consensus, enabling us to make data-driven decisions and optimizations. The tool's flexibility and adaptability were evident as we easily configured it to test different network conditions, thereby obtaining a comprehensive understanding of the protocols' performance under various scenarios.
+
+The comparative analysis between PoA and PoW further emphasized the importance of choosing the right consensus algorithm, and how our tools can aid in making that decision based on empirical data.
+
+In summary, our tools offer a robust, efficient, and user-friendly environment for developing and testing blockchain protocols. They not only save time and effort but also provide the kind of deep insights that are crucial for the development of secure, efficient, and scalable blockchain networks.
 
