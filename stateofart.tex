@@ -273,7 +273,7 @@ The Nakamoto Consensus protocol, despite being the first consensus mechanism for
 
 There are multiple ways of improving the Nakamoto Consensus protocol, and doing so has resulted in the creation of new blockchain networks. These changes move the consensus protocol within the triangle formed by the ``trilemma'', but they also come with new challenges compared to the original consensus for blockchains.
 
-This topic is relevant to this dissertation since it's these characteristics that differentiate consensus even further.
+This topic is relevant to this thesis since it's these characteristics that differentiate consensus even further.
 
 \subsection*{Improving Scalability}
 Blockchain networks have faced scalability issues since their inception. A consensus mechanism must maintain security and decentralization, so it's challenging to scale the network and improve the transaction processing speed. To overcome this challenge, several solutions have been proposed, including decoupling blockchain functions, parallel chains, and DAG-based protocols.
@@ -318,7 +318,8 @@ Proof of Stake (PoS) has emerged as a popular alternative to Proof of Work (PoW)
 In conclusion, PoS and its variants offer a range of options that balance security, scalability, and efficiency, each with its own set of trade-offs and benefits.
 
 \subsection*{\textbf{Proof of Authority and Its Variants}}
-Proof of Authority (PoA) is a consensus algorithm commonly used in permissioned blockchain networks, where decentralization is not the primary concern. In PoA, a limited set of pre-approved validators are responsible for block creation and transaction validation. This approach offers a high degree of efficiency and scalability while eliminating the need for resource-intensive calculations. Interestingly, our implementation of PoA has certain similarities with PoW, a topic that will be explored further in this dissertation.
+Proof of Authority (PoA) is a consensus algorithm commonly used in permissioned blockchain networks, where decentralization is not the primary concern. In PoA, a limited set of pre-approved validators are responsible for block creation and transaction validation. This approach offers a high degree of efficiency and scalability while eliminating the need for resource-intensive calculations.
+Interestingly, we also implemented a PoA, that has certain similarities with PoW, a topic that will be explored further in this document.
 
 \textbf{Clique PoA}: This variant aims to improve the decentralization aspect of PoA by allowing multiple authorities to propose blocks in a round-robin manner. This reduces the risk of a single point of failure and enhances network security \cite{szilagyi2017clique}.
 
