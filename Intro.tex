@@ -11,20 +11,17 @@ Consensus algorithms play a critical role in the functioning of blockchains, det
 
 The main objective is to develop tools and methods to easily swap, test, develop, and compare different consensus algorithms in a live environment using actual nodes on a network. This study aims to provide insight into the field of blockchains and consensus algorithms, contributing to the advancement of more secure, scalable, and efficient blockchain systems. The Tezos \cite{goodman2014tezos} blockchain node will serve as a testbed for this project, and the focus will be on examining the potential of consensus algorithms to be swapped and changed on demand. Through this work, we introduce innovative tools that facilitate these processes, setting the stage for future advancements in the field.
 
-This document will provide valuable insights into the field of blockchains and consensus algorithms, contributing to the development of more secure, scalable, and efficient blockchain systems.
-
 From tools and methods to test consensus algorithms to the development of algorithms and their integration into existing blockchain nodes, this thesis will leave a lasting impact on the future of blockchains.
 
 \section{Motivation}
 
+While blockchain technology has garnered significant attention and adoption, the field is still in its infancy when it comes to the ease of experimenting with and implementing consensus algorithms. The introduction has laid out the landscape of blockchain technology and the pivotal role that consensus algorithms play in it. However, the real-world application of these algorithms is often hindered by the complexities involved in their development, testing, and deployment in a live network. 
 
-Blockchain technology has rapidly gained popularity in recent years, yet the development and implementation of consensus algorithms for blockchains remains a complex and time-consuming task. The lack of tools and methods for easily swapping and testing different consensus algorithms in a live environment presents a significant barrier to the adoption and evolution of blockchains, limiting the ability of developers to experiment with new and innovative consensus algorithms. This is particularly concerning given the importance of consensus algorithms in achieving optimal balance between scalability, security, and decentralization, also known as the ``blockchain trilemma''.
+The current state of affairs presents a paradox: on one hand, we have an ever-growing list of consensus algorithms, each promising to solve the "blockchain trilemma" of scalability, security, and decentralization. On the other hand, we lack the tools and frameworks that allow for seamless experimentation and comparison of these algorithms in a live setting. This gap not only stunts innovation but also restricts the practical evaluation of whether an algorithm delivers on its promises.
 
-This document aims to address these challenges by exploring the potential for consensus algorithms to be plugged and changed on demand. The study will provide valuable insights into the most effective methods for testing consensus algorithms in a live environment, and contribute to the development of a domain-specific language for describing consensus algorithms. The results of this research will benefit both the academic community and industry stakeholders, who will be able to make informed decisions about which consensus algorithm is best suited for their specific use case.
+This study is motivated by the need to bridge this gap. It aims to provide the tools that make it easier to swap, test, and compare different consensus algorithms in a live environment, using the Tezos blockchain as a testbed. By doing so, this research aspires to remove the barriers that currently limit the full exploration and understanding of consensus algorithms, thereby contributing to the advancement of blockchain technology as a whole.
 
-The objective of this study is to advance the field of blockchains by improving the security, scalability, and decentralization of blockchain networks. The importance of this research cannot be overstated, as the ability to test consensus algorithms is critical for the continued growth and evolution of blockchains.
-
-In light of these challenges and opportunities, it becomes evident that there is a pressing need for a solution that simplifies the process of developing, testing, and swapping consensus algorithms. The current landscape is fraught with complexities and limitations that hinder the full potential of blockchain technology. The following section will delve into these problems in greater detail, setting the stage for the proposed solutions and contributions that this research aims to provide.
+The following section will delve deeper into the specific problems that this research addresses, further highlighting the necessity and timeliness of the proposed solutions.
 
 \section{The Problem}
 The development of blockchain technology has led to the creation of a large number of consensus protocols, each with its unique characteristics, from the selection of the leader, to the type of network, data structure, block structure, time between each block, and multiple ways to have a chain, to name just a few. Newer and innovative protocols are designed ``everyday'' with totally different characteristics compared to previous protocols. There's a lot of ``fine tunning'' to be done, even when comparing protocols of the same type. These small changes are enough to start a totally different network. For example, just increasing the original block size of Bitcoin was enough to start a new network, Bitcoin Cash \cite{bitcoincash}.
@@ -48,7 +45,7 @@ By using an already built blockchain, the focus of this solution is solely on th
 
 One of the ideas for implementing this solution is to use the Tezos blockchain. The reason for using Tezos is its inherent adaptability, which allows for the removal of its current consensus algorithm and the implementation of a new one. This approach provides a layer of adaptability to the Tezos blockchain, making it suitable for testing and swapping various consensus algorithms with ease.
 
-As of the writing of this document, there's no knowledge of projects or documents that describe a similar solution to this one proposed. There exists the concept of consensus testing when talking about a blockchain node implementation in specific, that is, for example, tools to test the Ethereum network, or the Tezos network, but there are no tools to test specifically the consensus part of these projects and compare them, or even, a tool to compare and test consensus protocols in general.
+As of the writing of this document, there's no knowledge of projects or documents that describe a similar solution to this one proposed. There exists the concept of consensus testing when talking about a blockchain node implementation in specific, that is, for example, tools to test the Ethereum's consensus protocol, or the Tezos node, but there are no tools to test specifically the consensus part of these projects and compare them, or even, a tool to compare and test consensus protocols in general.
 
 
 In summary, this thesis presents a comprehensive approach to address the challenges outlined in the problem statement. We have developed tools that facilitate the easy swapping, testing, and comparison of consensus algorithms in a live environment, using the Tezos blockchain as a base. This work serves as a pioneering step in standardizing the evaluation and development of consensus protocols, thereby making blockchain technology more accessible and customizable. The following section will elaborate on the main contributions of this research, detailing the tools and protocols developed to realize this solution.
@@ -61,15 +58,15 @@ In summary, this thesis presents a comprehensive approach to address the challen
 The work presented in this thesis addresses several challenges in the development and testing of blockchain protocols, leading to the following main contributions, that can be found here \href{https://gitlab.com/Gabulhas/tezos}{\textbf{here}}:
 
 \begin{itemize}
-\item Development of Bootstrapper: A tool that simplifies the process of creating new blockchain protocols by providing a template-based approach, reducing the amount of code that needs to be written.
+\item\textbf{Development of Bootstrapper}: A tool that simplifies the process of creating new blockchain protocols by providing a template-based approach, reducing the amount of code that needs to be written.
 
-\item Creation of Live Testing Tool: A tool designed for real-time testing and debugging of blockchain protocols, offering various metrics for performance evaluation.
+\item\textbf{Creation of Live Testing Tool}: A tool designed for real-time testing and debugging of blockchain protocols, offering various metrics for performance evaluation.
 
-\item Implementation of a Proof of Work Protocol: A fully functional PoW protocol developed from zero, serving as a practical example of the tool's capabilities.
+\item\textbf{Implementation of a Proof of Work Protocol}: A fully functional PoW protocol developed from zero, serving as a practical example of the tool's capabilities.
 
-\item Implementation of a Proof of Authority Protocol: A PoA protocol developed to showcase the versatility of the Bootstrapper and Live Testing Tool, featuring a round-robin mechanism for validator selection.
+\item\textbf{Implementation of a Proof of Authority Protocol}: A PoA protocol developed to showcase the versatility of the Bootstrapper and Live Testing Tool, featuring a round-robin mechanism for validator selection.
 
-\item Open Source Availability: All tools and protocols developed are open-source and publicly available, encouraging further research and development in the field.
+\item\textbf{Open Source Availability}: All tools and protocols developed are open-source and publicly available, encouraging further research and development in the field.
 
 \end{itemize}
 

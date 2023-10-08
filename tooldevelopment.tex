@@ -39,7 +39,7 @@ Here we outline the elements that are common across most protocols.
 Given these commonalities, our tool serves as a starter kit, providing the essential components that can be generalized across different protocols. The tool aims to fill in as much as possible, leaving only the unique logic to be implemented by the developer.
 
 
-\subsubsection*{Functionalities}
+\subsection*{Functionalities}
 The Bootstrapper is a command-line program designed to streamline the initial setup of a new protocol in Tezos.
 It functions as an "Init Protocol" command, performing the following tasks of \textbf{folder creation}, where it automatically sets up the necessary folders, \textbf{template copy}, as it copies a predefined template (created by us) into the new folder, but are left in the folder so the developer can change it for their needs, \textbf{text replacement and integration}, as it replaces specific text in the template and ensures integration with Tezos' Dune build system and other required code components, and finally it \textbf{includes a pre built script} to build the protocol, so there's no need for the developer to learn how this process is done.
 
@@ -48,11 +48,7 @@ To further ease development and reduce boilerplate code, we enhanced a pre-exist
 This library allows developers to automate the definition of encoding functions, by appending a meta-programming tag \textit{[@@deriving encoding]} to a type, the encoding function for that type is automatically generated, and this is particularly useful for type representations, as a big part of the code in protocols are these functions.
 We also include a block header functor, that auto-generates the entire block\_header file functionality by merely providing a type.
 This not only reduces the code volume by threefold (as experienced while improving the previously mentioned Proof of Work) but also alleviates the developer's need to delve into the intricacies of the Data-encoding library.
-
-
-
-
-
+\\
 For the user, this is abstracted with the following command
 
 \textit{./bootstrapper -name my\_really\_fast\_protocol -env 6}
@@ -64,12 +60,9 @@ For the user, this is abstracted with the following command
 By incorporating these functionalities, the Bootstrapper serves as a comprehensive tool for initiating and easing the development of new protocols in Tezos.
 
 
-
-
-
 \section{Live Testing Tool}
 
-The Live Testing Tool is central to the main objective of this thesis, which aims to facilitate the development and evaluation of blockchain protocols in a live setting. After developing a protocol in a standardized manner, particularly using Tezos as the platform, the next crucial step is to observe its real-world behavior. This tool is designed to not only run the protocol in a live environment but also to provide valuable metrics about the network's performance. Additionally, it offers the capability to control various aspects of the network, allowing for a comprehensive evaluation of the protocol under different conditions, and can also be used during the development of the protocol as part of the development workflow, as with it it's possible to write tests and get a network running in way fewer steps as with manually executing commands and operations.
+The Live Testing Tool is central to the main objective of this thesis, which aims to facilitate the development and evaluation of blockchain protocols in a live setting. After developing a protocol in a standardized manner, particularly using Tezos as the platform, the next crucial step is to observe its real-world behavior. This tool is designed to not only run the protocol in a live environment but also to provide valuable metrics about the network's performance. Additionally, it offers the capability to control various aspects of the network, allowing for a comprehensive evaluation of the protocol under different conditions, and can also be used during the development of the protocol as part of the development workflow, as it makes it possible to write tests and get a network running in way fewer steps as with manually executing commands and operations.
 
 Overall, the Live Testing Tool serves as an essential component for both the development and assessment phases of blockchain protocols.
 
@@ -80,7 +73,7 @@ The Live Testing Tool operates as a web server, making it language-agnostic for 
 
 In its architecture, the server acts as a coordinator, maintaining a list of all node endpoints and ensuring seamless interaction among them. This enables the tool to have a centralized point for controlling and monitoring the network.
 
-While it's executing, the tool also logs information about the tests it performed, from the protocols, to the start time of the nodes and more.
+While executing, the tool also logs information about the tests it performed, from the protocols, to the start time of the nodes and more.
 
 To provide real-time metrics and insights, the tool employs a monitoring mechanism for each node. Referred to as "watchers," these components continually request information from their respective nodes, focusing on blocks and transactions. This allows the tool to perform various calculations and assessments, offering a comprehensive view of the protocol's behavior in a live setting.
 
@@ -138,7 +131,7 @@ To provide real-time metrics and insights, the tool employs a monitoring mechani
 
 \subsection*{Example Usage}
 
-In this section we showcase how this tool can be used from a Python script, yet this system isn't specifc to this language, so other languages like OCaml, Go could be used aswell.
+In this section, we demonstrate how to use this tool with a Python script. However, the system is not language-specific, so other languages like OCaml and Go can also be used. For the sake of brevity, we won't cover the usage of every endpoint.
 
 \begin{listing}[H]
 \caption{Example function that starts a test}

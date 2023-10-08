@@ -11,13 +11,16 @@ The primary aim of this chapter is to implement a Proof of Authority protocol. W
 
 To meet these objectives, we have a multi-faceted approach. First, we aim to demonstrate the efficiency gains by using the Bootstrapper, highlighting the reduced number of steps needed to get the protocol up and running. Second, we plan to show how the Live Testing Tool can be an invaluable asset during the development phase, particularly for debugging and iterative testing.
 
-Lastly, we will present example tests that can be run on the new Proof of Authority protocol, showcasing the tool's versatility and utility in a real-world scenario.
+Lastly, we will present example tests that can be run on the new protocol, showcasing the tool's versatility and utility in a real-world scenario.
 
 \section{Boostrapping and Implementing Proof of Authority}
 
 In this chapter, we delve into the implementation of a Proof of Authority (PoA) protocol. Unlike public, permissionless protocols like Proof of Work, PoA is a permissioned protocol. 
 
-This means that only a select group of nodes, known as authorities or validators, are allowed to create new blocks.
+In PoA, only a select group of nodes, termed as authorities, proposers or validators, have the privilege to create new blocks. This design inherently prioritizes security and speed over decentralization. The restricted set of approved nodes enhances security by limiting block proposal to trusted entities. Additionally, the protocol operates more efficiently, minimizing forks and computational overhead.
+
+In our discussion, the terms ``validators'' and ``proposers'' are used interchangeably, based on the assumption that participating nodes are also validating incoming blocks. However, it's important to note that in a real-world scenario, these roles can differ. A ``proposer'' is a node authorized to create new blocks, while a ``validator'' may only have the capability to confirm the validity of these blocks. In certain rounds, a validator might only validate and not propose, depending on its designated role in that specific cycle.
+
 
 Also, unlike networks using Proof of Work are considered a Synchronous network, our Proof of Authority is Partially-synchronous, as there's an upper bound in our implementation, that is, nodes have a block time plus a tolerance to successfully create and spread a block.
 
@@ -96,11 +99,11 @@ Before the creation of the Testing tool, either rudimentary bash scripts where u
 
 \section{Evaluation and Insights: PoA vs PoW}
 
-In this section, we aim to compare the key metrics of Proof of Authority (PoA) and Proof of Work (PoW) protocols. Specifically, we focus on the metric of Time-to-Consensus, which measures the time taken for a newly created block to be accepted by a majority of nodes or validators in the network. This comparison serves as a practical use-case for our developed tools and provides insights into the efficiency of different consensus algorithms.
+In this section, we aim to compare the key metrics of Proof of Authority (PoA) and Proof of Work (PoW) protocols. Specifically, we focus on the metric of Time-to-Consensus (TTC), which measures the time taken for a newly created block to be accepted by a majority of nodes or validators in the network. This comparison serves as a practical use-case for our developed tools and provides insights into the efficiency of different consensus algorithms.
 
-To carry out this comparison, we used a script that simulates various network conditions for both PoA and PoW. This script is designed to measure the Time-to-Consensus under different configurations of block time and validator set size.
+To carry out this comparison, we used a script that simulates various network conditions for both PoA and PoW. This script is designed to measure the TTC under different configurations of block time and validator set size.
 
-The script automates Time-to-Consensus (TTC) tests for different consensus protocols and network configurations. It initializes a test network, starts the baker nodes, fetches the TTC from the Live Testing Tool, and then shuts down the network. Multiple test scenarios are defined with varying numbers of nodes and validators, and the script iterates through these to gather TTC data.
+The script automates Time-to-Consensus tests for different consensus protocols and network configurations. It initializes a test network, starts the baker nodes, fetches the TTC from the Live Testing Tool, and then shuts down the network. Multiple test scenarios are defined with varying numbers of nodes and validators, and the script iterates through these to gather TTC data.
 
 \begin{listing}[H]
 \caption{Script to execute the tests for Time-to-Consensus}
@@ -108,12 +111,11 @@ The script automates Time-to-Consensus (TTC) tests for different consensus proto
 \begin{minted}[fontsize=\footnotesize]{python}
 def start_protocol_test(protocol, n_validators, n_nodes, blocks_to_wait, blocks_to_run, block_time):
 
-    print(f"Starting {pretty_name} test")
+    print(f"Starting {protocol} test")
     parameters = get_protocol_parameters(protocol)
     parameters["constants"]["block_time"] = str(block_time)
     baker_name = "./octez-baker-custom-"
     accounts = create_multiple_accounts(n_validators)
-    reveal_accounts = False
 
     if protocol == "poa":
         parameters["constants"]["initial_validator_set"] = [
@@ -122,7 +124,6 @@ def start_protocol_test(protocol, n_validators, n_nodes, blocks_to_wait, blocks_
         ]
         baker_name = baker_name + "poa"
     else:
-        reveal_accounts = True
         baker_name = baker_name + "demo"
 
     print("Starting the network")
@@ -144,7 +145,7 @@ def start_protocol_test(protocol, n_validators, n_nodes, blocks_to_wait, blocks_
     wait_until_status("stopped")
     stop_bakers(processes)
 
-    print(f"{pretty_name} test complete.")
+    print(f"{protocol} test complete.")
 
 
 tests = [
@@ -168,13 +169,16 @@ for config in tests:
 
 \section*{Expectations, Results and Observations}
 
-Based on prior knowledge and the inherent characteristics of PoA and PoW, we expect the following outcomes:
+While the primary focus of this document is not to compare protocols but rather to highlight the capabilities of the tools that enable such comparisons, it's worth noting our expectations based on the inherent characteristics of PoA and PoW. These expectations serve as compelling indicators of the tools' effectiveness and utility.
 
 \begin{itemize}
-    \item PoA should exhibit a more consistent average Time-to-Consensus, irrespective of the block time and the size of the validator set.
-    \item In PoW, the Time-to-Consensus is likely to increase with the number of validators, as a larger majority is needed to resolve forks and discard invalid blocks.
-    \item Smaller block times in PoW are expected to result in longer Time-to-Consensus due to increased frequency of forks.
-    \item The need for larger block times in PoW is evident, as shorter block times can lead to network instability and increased security risks.
+    \item \textbf{PoA's Consistent Time-to-Consensus}: In PoA, only a predefined set of validators are responsible for block creation. This eliminates the randomness associated with block creation in PoW, leading to a more predictable and consistent Time-to-Consensus (TTC). The TTC isn't significantly affected by block time or validator set size, as validators are known and trusted entities.
+
+    \item \textbf{PoW's Increasing TTC with More Validators}: In PoW, any node can become a validator by solving a cryptographic puzzle. As the number of validators increases, the chances of multiple nodes solving the puzzle around the same time also increase. This leads to forks, requiring additional time for the network to reach consensus. Hence, TTC is expected to rise with more validators.
+
+    \item \textbf{Impact of Smaller Block Times in PoW}: Smaller block times mean that validators have less time to propagate their blocks to the network. This increases the likelihood of two or more validators solving the puzzle simultaneously, leading to more frequent forks. Resolving these forks takes time, thereby increasing the TTC.
+
+    \item \textbf{Need for Larger Block Times in PoW}: Shorter block times not only lead to increased TTC but also pose security risks. Frequent forks make the network more susceptible to "double-spending" attacks. Moreover, network instability can occur if blocks are propagated slower than they are created.
 \end{itemize}
 
 

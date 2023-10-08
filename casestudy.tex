@@ -2,36 +2,33 @@
 
 In this chapter, we focus on a hands-on experiment conducted on the Tezos blockchain. We chose Tezos for its inherent flexibility and adaptability, qualities that make it an ideal testbed for exploring the implementation of various consensus protocols. The primary aim of this experiment is twofold: to gain a deeper understanding of how consensus protocols can be generalized and tested, and to delve into the specifics of Tezos' architecture and how it accommodates different protocols.
 
-Our experiment involves implementing a Proof of Work consensus protocol, similar to Bitcoin's. This serves as a learning exercise that allows us to understand the nuances of integrating a new consensus protocol into an existing blockchain like Tezos. We will discuss the requirements for this protocol, its integration process, and the tools we used for interaction.
+Our experiment focuses on implementing Bitcoin-like Proof of Work in Tezos. This hands-on approach helps us explore the intricacies of adding new consensus rules to an established blockchain. We'll outline the requirements, integration steps, and tools involved.
 
-Other components of the protocol, such as the client and the baker, will also be covered. The client serves as the gateway for network information, while the baker takes on the role of block creation and mining. We'll go into detail about the mining process, particularly the mechanism of finding the nonce that satisfies the block's hash conditions.
+Key components like the client and baker are also discussed. The client acts as a network information hub, while the baker handles block creation and mining. Special attention is given to the mining mechanism, specifically nonce discovery to meet hash conditions.
 
-In summary, this chapter aims to demonstrate Tezos' capability to serve as a versatile platform for implementing and testing different consensus protocols. Our implementation of the Proof of Work protocol will not only serve as a proof of concept but also highlight Tezos' potential to support a broader range of consensus algorithms.
+In short, this chapter showcases Tezos as a flexible platform for testing various consensus models. Our Proof of Work implementation serves both as a proof of concept and an indicator of it' adaptability to diverse consensus methods.
 
 \section{Tezos Blockchain as a tool for the Experiment}
 The choice of Tezos as the blockchain network for this experiment is a deliberate one, as it aligns well with the goals of the solution presented in the previous section.
 
-To understand why Tezos was chosen, it is important to first explain what Tezos is.
-Tezos is a blockchain network that was launched in 2018, and it's history began with the idea of creating a generic and self-amending crypto-ledger, which could be improved and upgraded over time without causing any disruption to its community. This makes Tezos stand out from other blockchain networks, which often struggle with the challenges of upgrading their underlying technology. 
-The idea behind it is to provide a blockchain network that is not only secure, but also flexible and upgradable. The network is designed to be self-amending, meaning that changes to its protocol can be made without the need for a hard fork. 
-Tezos originally operates on a Delegated Proof of Stake consensus, but the specifics of this consensus are irrelevant since we are taking it out and swapping with different consensus protocols.
+To understand the choice of this blockchain network, it's crucial to delve into its unique features.
 
-A hard fork is a permanent divergence in the blockchain of a cryptocurrency, leading to the creation of two separate chains. It occurs when a node's existing code is altered, resulting in a change to the rules that govern the network. 
-This can happen for a variety of reasons, including a desire to add new features to the network, fix security vulnerabilities, or resolve a disagreement within the community about the direction of the project. The disagreement of the size of a block in Bitcoin was the cause of a creation of Bitcoin Cash's network (mentioned in example \ref{bitcoincashexample}), where the Bitcoin blockchain was splitted in two (and later in more chains).
+Launched in 2018, Tezos was designed as a self-amending crypto-ledger, capable of evolving without disrupting its community. This sets it apart from other networks that face challenges when upgrading their technology.
 
-When compared to other blockchain networks, Tezos stands out as a really good fit for this experiment. It is commercially, well-tested and industry-grade blockchain network, and its upgradability makes it suitable for the replacement of the consensus algorithm. Additionally, the protocol in the codebase is independent and the whole project is designed for the replacement of such. 
-The idea of the protocol/consensus layer in Tezos is that it's stateless, meaning that it is independent from other parts of the node like the Peer-to-Peer layer, the client, the validation layer, and the storage of the blockchain state on disk.
-This makes it easy to focus on writing the actual protocol and eliminates the need to worry about other components.
+The platform is not only secure but also flexible and upgradable, designed to allow protocol changes without requiring a hard fork. While it originally operates on a Delegated Proof of Stake consensus, this is irrelevant for our experiment as we're replacing it with different consensus rules.
 
+A hard fork, for context, is a permanent split in a cryptocurrency's blockchain, often due to changes in network rules or disagreements within the community. For example, a dispute over Bitcoin's block size led to the creation of Bitcoin Cash \ref{bitcoincashexample}.
 
-In conclusion, using Tezos for this experiment was a strategic decision as it offers the necessary features and characteristics to carry out the experiment successfully. Its history, design, and upgradability make it an ideal candidate for this experiment, and the stateless nature of the protocol part of the codebase allows the focus to be on the consensus, rather than other components of the node.
-The results of this experiment will provide valuable insights into the potential of Tezos and its adaptability, making it an exciting step in the development of a blockchain network that can easily swap consensus algorithms.
+Compared to other options, this network is an excellent fit for our experiment. It's a well-tested, industry-grade platform with an upgradable architecture. The protocol layer is stateless and independent of other node components like the Peer-to-Peer layer and client, allowing us to focus solely on the consensus rules.
+
+In summary, the choice of this platform was strategic, offering the features needed for a successful experiment. Its upgradable nature and stateless protocol layer allow us to concentrate on consensus rules. The experiment's results will shed light on the platform's adaptability and potential for supporting various consensus models.
 
 
 
 \section{How Tezos is structured and How it allows self-amending}
 
-Tezos has a unique structure, which separates the protocol, or how the Tezos project calls it, ``Economic Protocol'' from the rest of the node, known as the shell. The diagram \ref{fig:octupus} illustrates the Tezos architecture, and it's explained in greater detail here \cite{nomadiclabsdocs}.
+Tezos has a unique structure, which separates the protocol, or how the project calls it, ``Economic Protocol'' from the rest of the node, known as the shell. The diagram \ref{fig:octupus} illustrates the node architecture, and it's explained in greater detail here \cite{nomadiclabsdocs}.
+
 The protocol is responsible for interpreting transactions and administrative operations, as well as detecting erroneous blocks, everything else is handled by the shell.
 
 The shell includes the part of the validation code, the peer-to-peer layer, the disk storage of blocks, and the versioned state of the ledger.
@@ -39,11 +36,11 @@ The distributed database abstracts the fetching and replication of new chain dat
 
 The economic protocol on the chain is subject to an amendment procedure, which allows for the on-chain operations to switch from one protocol to another.
 
-Finally, the RPC (Remote Procedure Call) layer is an important part of the Tezos node, allowing clients, third-party applications, etc. to interact with the node and introspect its state using the JSON format and HTTP protocol.
+Finally, the RPC (Remote Procedure Call) layer is an important part of the node, allowing clients, other nodes, third-party applications, etc. to interact with the node and introspect its state using the JSON format and HTTP protocol.
 
-In other words, the outside world of the node communicates with the shell, via RPC layer calls, and the shell communicates with the protocol. Like said previously, the protocol is stateless, and is only used to preform the logic part of the consensus, that is, to verify transactions, blocks and to describe what the shell should do when receiving newer information.
+In other words, the outside world of the node communicates with the shell, via RPC layer calls, and the shell communicates with the protocol. As previously mentioned, the protocol is stateless, and is only used to preform the logic part of the consensus, that is, to verify transactions, blocks and to describe what the shell should do when receiving newer information.
 
-The communication between the shell and the protocol in Tezos is based on an interface called ``Updater.PROTOCOL''.
+The communication between the shell and the protocol is based on an interface called ``Updater.PROTOCOL''.
 The protocol component is restricted to a specific environment that restricts the access to a defined set of OCaml modules. This is to improve the security of the protocol.
 The protocol must implement the ``Updater.PROTOCOL'' interface (defined in the environment, and later explained in more detail) in order to interact with the shell. The interface requires the protocol to define protocol-specific types for operations/transactions and block header, along with encoders/decoders for the types.
 
@@ -52,15 +49,16 @@ For example, a Block can have two levels, one corresponding to the overall/shell
 
 Blocks in Tezos have a generic part, understood by any protocol, and a protocol-specific part.
 
-A Tezos node can contain multiple economic protocols, but only one of them is activated at any given time, and the it always starts with the ``genesis'' protocol.
+A node can contain multiple economic protocols, but only one of them is activated at any given time, and it always starts with the ``genesis'' protocol.
 
 Some protocols are linked to the node at the time of compilation, that is, the node already has information about it when starting, and some protocols can also be registered dynamically at runtime via an RPC, allowing for protocol updates without the need of manual intervention to do so.
 
-Protocol activation in Tezos is a two-step process.
+Protocol activation in Tezos is a two-step process. 
+\begin{enumerate}
+    \item A command injects an ``activation block'' to the blockchain. This block contains the hash of the protocol to be used, and only one operation to activate it. The activation block is the only block using the genesis protocol, as this protocol doesn't contain any other functionality besides the activation of a different protocol.
 
-Firstly, a command injects an ``activation block'' to the blockchain. This block contains the hash of the protocol to be used, and only one operation to activate it. The activation block is the only block using the genesis protocol, as this protocol doesn't contain any other functionality besides the activation of a different protocol.
-
-Secondly, the next block in the blockchain will be the first block using the activated protocol. 
+\item The next block in the blockchain will be the first block using the activated protocol. 
+\end{enumerate}
 
 
 \begin{figure}[H]
@@ -123,7 +121,7 @@ In this particular case, the goal was not only to implement the new protocol, bu
 
 The protocol that was implemented includes a few functionalities, such as transactions between two entities, where ``Tez'', the currency used in Tezos, is transferred from one account to another.
 
-Another aspect of the protocol is the concept of mining and verifying the proof of work, like mentioned in a previous section about Proof of Work.
+Another aspect of the protocol is the concept of mining and verifying the Proof of Work, like mentioned in a previous section about it.
 This is done by hashing the header whole header, both the shell part and the protocol part, this last one containing the nonce, and verifying that the hash value is lower than the target where this is one of the main mechanism behind proof of work.
 
 The environment that the protocol is compiled against requires a definition of the protocol header, which contains three elements: ``target'', ``nonce'', and ``miner''.
@@ -150,7 +148,7 @@ The Tezos documentation calls this the ``representation layer'' of the protocol.
 
 \begin{itemize}
 
-    \item Accounts/Manager: This represents the concept of an account in the protocol. An account is just a Publick Key Hash, which is used to fetch information from the storage. 
+    \item Accounts/Manager: This represents the concept of an account in the protocol. An account is just a Public Key Hash, which is used to fetch information from the storage. 
 
     \item Constants/Parameters: This file contains information that is constant throughout the execution of the protocol. Some constants can be defined when activating the protocol. The constants include:
 
